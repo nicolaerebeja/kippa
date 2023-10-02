@@ -11,7 +11,7 @@ from .controllers.HomeController import home
 views = Blueprint('views', __name__)
 
 views.route('/admin', methods=['GET', 'POST'])(adminHome)
-views.route('/admin/customers', methods=['GET'])(customers)
+views.route('/admin/customers', methods=['GET', 'POST'])(customers)
 
 
 

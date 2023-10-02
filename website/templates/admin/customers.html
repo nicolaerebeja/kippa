@@ -2,15 +2,153 @@
 {% block content %}
 
 
-<div class="row mb-12">
-  <div class="col-lg-12 col-md-12 mb-md-0 mb-4">
-    <div class="card">
+<button class="btn btn-primary" id="open-modal-button" type="button">Nuovo Cliente +</button>
 
+    <div class="row my-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="table align-items-center mb-0">
+                        <thead>
+                        <tr>
+                            <th class="text-uppercase text-xxs font-weight-bolder opacity-7">Name</th>
+                            <th class="text-uppercase text-xxs font-weight-bolder opacity-7 ps-2">Surname</th>
+                            <th class="text-uppercase text-xxs font-weight-bolder opacity-7 ps-2">Tel.</th>
+                            <th class="text-uppercase text-xxs font-weight-bolder opacity-7 ps-2">Email</th>
+                            <th class="text-uppercase text-xxs font-weight-bolder opacity-7 ps-2">PIVA</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div class="d-flex px-2 py-1">
+                                    <div>
+                                        <img src="https://cdn.iconscout.com/icon/free/png-256/free-avatar-370-456322.png?f=webp"
+                                             class="avatar avatar-sm me-3"
+                                             alt="avatar image">
+                                    </div>
+                                    <div class="d-flex flex-column justify-content-center">
+                                        <h6 class="mb-0 font-weight-normal text-sm">Giuseppe</h6>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <p class="text-sm font-weight-normal mb-0">Peppe</p>
+                            </td>
+                            <td>
+                            <span class="badge badge-dot me-4">
+                            <i class="bg-info"></i>
+                            <span class="text-dark text-xs">+39333355512</span>
+                            </span>
+                            </td>
+                            <td>
+                                <p class="mb-0 font-weight-normal text-sm">giusepppe@user.com</p>
+                            </td>
+                            <td>
+                                <p class="text-sm font-weight-normal mb-0">1234569068966</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="d-flex px-2 py-1">
+                                    <div>
+                                        <img src="https://cdn.iconscout.com/icon/free/png-256/free-avatar-370-456322.png?f=webp"
+                                             class="avatar avatar-sm me-3"
+                                             alt="avatar image">
+                                    </div>
+                                    <div class="d-flex flex-column justify-content-center">
+                                        <h6 class="mb-0 font-weight-normal text-sm">Maddalena</h6>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <p class="text-sm font-weight-normal mb-0">Mad</p>
+                            </td>
+                            <td>
+                            <span class="badge badge-dot me-4">
+                            <i class="bg-info"></i>
+                            <span class="text-dark text-xs">+39323423546</span>
+                            </span>
+                            </td>
+                            <td>
+                                <p class="mb-0 font-weight-normal text-sm">Madda@user.com</p>
+                            </td>
+                            <td>
+                                <p class="text-sm font-weight-normal mb-0">34567890-09876</p>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
+
+
 {% endblock %}
 
-{% block scripts %}
 
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<script>
+// Selectează butonul
+const openModalButton = document.getElementById('open-modal-button');
+
+// Adaugă un ascultător de eveniment pentru clic pe buton
+openModalButton.addEventListener('click', () => {
+  // Afișează fereastra modală pentru introducerea datelor clientului
+  Swal.fire({
+    title: 'Crea Nuovo Cliente',
+    html: `
+      <form id="client-form">
+        <div class="input-group input-group-static mb-4">
+          <label>Nome</label>
+          <input type="text" class="form-control" id="name" required>
+        </div>
+        <div class="input-group input-group-static mb-4">
+          <label>Cognome</label>
+          <input type="text" class="form-control" id="surname" required>
+        </div>
+        <div class="input-group input-group-static mb-4">
+          <label>Tel.</label>
+          <input type="tel" class="form-control" id="tel" required>
+        </div>
+        <div class="input-group input-group-static mb-4">
+          <label>Piva</label>
+          <input type="text" class="form-control" id="piva" required>
+        </div>
+        <div class="input-group input-group-static mb-4">
+          <label>Email</label>
+          <input type="email" class="form-control" id="email" required>
+        </div>
+
+      </form>
+    `,
+    showCancelButton: true,
+    confirmButtonText: 'Crea',
+    cancelButtonText: 'Annulla',
+    focusConfirm: false,
+    preConfirm: () => {
+      const name = document.getElementById('name').value;
+      const surname = document.getElementById('surname').value;
+      const tel = document.getElementById('tel').value;
+      const piva = document.getElementById('piva').value;
+      const email = document.getElementById('email').value;
+      return { name, surname, tel, piva, email };
+    }
+  }).then((result) => {
+    if (result.isConfirmed) {
+      const data = result.value;
+      console.log('Nume:', data.name);
+      console.log('Email:', data.email);
+    }
+  });
+});
+
+
+    </script>
 {% endblock %}
