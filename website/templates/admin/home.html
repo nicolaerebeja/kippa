@@ -1,0 +1,58 @@
+{% extends "admin/base.html" %}
+{% block content %}
+
+
+<div class="row mb-12">
+  <div class="col-lg-12 col-md-12 mb-md-0 mb-4">
+    <div class="card">
+      <div class="card-body px-0 pb-2">
+
+        <div id='calendar'></div>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/locales/it.global.min.js'></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var calendarEl = document.getElementById('calendar');
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: 'timeGridWeek',
+    locale: 'it',
+
+    slotMinTime: '09:00',
+    slotMaxTime: '18:00',
+
+      eventClick: function(info) {
+    alert('Event: ' + info.event.extendedProps.description);
+  }
+
+  });
+  calendar.render();
+
+
+  var event = {
+  title: 'Cliente 1',
+  start: '2023-10-02T10:00:00',
+  end: '2023-10-02T11:00:00',
+      extendedProps: {
+    description: 'Aceasta este o descriere suplimentară',
+    location: 'Locația evenimentului',
+    customData: 'Orice altă informație pe care o dorești',
+  }
+};
+
+// Adaugă evenimentul la calendar
+calendar.addEvent(event);
+});
+
+</script>
+
+
+{% endblock %}
