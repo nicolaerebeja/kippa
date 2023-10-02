@@ -95,12 +95,9 @@
 
 
 <script>
-// Selectează butonul
 const openModalButton = document.getElementById('open-modal-button');
 
-// Adaugă un ascultător de eveniment pentru clic pe buton
 openModalButton.addEventListener('click', () => {
-  // Afișează fereastra modală pentru introducerea datelor clientului
   Swal.fire({
     title: 'Crea Nuovo Cliente',
     html: `
@@ -132,21 +129,28 @@ openModalButton.addEventListener('click', () => {
     confirmButtonText: 'Crea',
     cancelButtonText: 'Annulla',
     focusConfirm: false,
-    preConfirm: () => {
-      const name = document.getElementById('name').value;
-      const surname = document.getElementById('surname').value;
-      const tel = document.getElementById('tel').value;
-      const piva = document.getElementById('piva').value;
-      const email = document.getElementById('email').value;
-      return { name, surname, tel, piva, email };
-    }
-  }).then((result) => {
-    if (result.isConfirmed) {
-      const data = result.value;
-      console.log('Nume:', data.name);
-      console.log('Email:', data.email);
-    }
-  });
+      preConfirm: () => {
+        const name = document.getElementById('name').value;
+        const surname = document.getElementById('surname').value;
+        const tel = document.getElementById('tel').value;
+        const piva = document.getElementById('piva').value;
+        const email = document.getElementById('email').value;
+
+        $.ajax({
+          url: '/admin/customers',
+          method: 'POST',
+          data: { name, surname, tel, piva, email },
+          success: function (response) {
+            Swal.fire('Cliente creato con successo!', '', 'success');
+          },
+          error: function (error) {
+            console.error('Eroare:', error);
+            Swal.fire('Errore durante la creazione del cliente', 'Si è verificato un errore durante la creazione del client.', 'error');
+          }
+        });
+      }
+    }).then((result) => {
+    });
 });
 
 

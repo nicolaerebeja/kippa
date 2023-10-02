@@ -14,7 +14,7 @@ class Customer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     surname = db.Column(db.String(255), nullable=False)
-    tel = db.Column(db.String(20), nullable=False)
+    tel = db.Column(db.String(20), nullable=False, unique=True)
     piva = db.Column(db.String(15), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     password = db.Column(db.String(255), nullable=False)

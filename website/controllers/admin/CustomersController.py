@@ -1,13 +1,15 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
 from website.models import db, Customer
+from website.controllers.admin.EmailController import send_email
+
 import random
 import string
 
 customer_controller = Blueprint("customer_controller", __name__)
 
 @login_required
-def add_customer():
+def customers():
     if request.method == 'POST':
         name = request.form.get('name')
         surname = request.form.get('surname')
@@ -23,7 +25,12 @@ def add_customer():
         db.session.add(new_customer)
         db.session.commit()
 
-        flash('Customer added successfully!', category='success')
-        return redirect(url_for('customer_controller.customers'))  # Redirecționează către pagina cu lista de clienți sau altă pagină relevantă
+        subject = 'Sol30 - Attivazione dell\'account'
+        # message =  f'Il tuo account per il portale delle prenotazioni on-line è stato attivato./n I dati di accesso sono i seguenti: /n/nLogin: {email} /n/nPassword: {password}  /n/nPer visualizzare il portale accedi all\'indirizzo: sol30.com'
+        message = f'Il tuo account per il portale delle prenotazioni on-line è stato attivato.\nI dati di accesso sono i seguenti:\n\nLogin: {email}\nPassword: {password}\n\nPer visualizzare il portale accedi all\'indirizzo: sol30.com'
+
+        send_email(email, subject, message)
+
+        # return redirect(url_for('views.customers'))
 
     return render_template("admin/customers.html")
