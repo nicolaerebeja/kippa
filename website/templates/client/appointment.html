@@ -122,11 +122,7 @@
                                      style="position: static; left: 0px; display: none;">
                                     <div class="row" style="margin-top:20px">
                                         <div class="col-xs-12 col-md-3">
-
-
                                             <div id="datepicker"></div>
-
-
                                         </div>
 
 
@@ -197,20 +193,52 @@
     <script>
 
         $('#datepicker').datepicker({
-            format: "dd/mm/yyyy",
+            format: 'dd/mm/yyyy',
+            startDate: '-2d',
+            updateViewDate: false,
+            autoclose: true,
+            title: "Seleziona una data",
             language: "it",
             daysOfWeekDisabled: "0,6",
             todayHighlight: true,
-            beforeShowDay: function (date) {
-                // Lista cu zilele lucrătoare (0 = Duminică, 6 = Sâmbătă)
-                var workingDays = [1, 2, 3, 4, 5]; // Luni până Vineri
-
-                // Verifică dacă data este o zi lucrătoare
-                var dayOfWeek = date.getDay();
-                return [workingDays.indexOf(dayOfWeek) !== -1];
-            }
-
         });
+
+        // Atașează un eveniment pentru selecția datei
+        $('#datepicker').datepicker().on('changeDate', function (e) {
+
+            const selectedDate = e.date;
+
+            {#selectedDate.setTime(selectedDate.getTime() + selectedDate.getTimezoneOffset() * 60 * 1000);#}
+            {#selectedDate.setTime(selectedDate.getTime() + (60 * 60 * 1000));#}
+            selectedDate.setDate(selectedDate.getDate() + 1);
+            const year = selectedDate.getFullYear();
+            const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
+            const day = String(selectedDate.getDate()).padStart(2, '0');
+            const hours = String(selectedDate.getHours()).padStart(2, '0');
+            const minutes = String(selectedDate.getMinutes()).padStart(2, '0');
+            const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:00`;
+
+
+            $.ajax({
+                url: '/datepicker',
+                type: 'POST',
+                data: {selectedDate: formattedDate},
+
+                success: function (response) {
+                    if (response.disponibila) {
+                        // Data este disponibilă, poți face ceva aici
+                        console.log('Data este disponibilă');
+                    } else {
+                        // Data nu este disponibilă, poți face ceva aici
+                        console.log('Data nu este disponibilă');
+                    }
+                },
+                error: function (error) {
+                    console.error('Eroare în timpul verificării disponibilității:', error);
+                }
+            });
+        });
+
 
         $('#smartwizard').smartWizard({});
 
@@ -230,6 +258,8 @@
                     step1();
                 } else if (currentURL.includes('#step-2')) {
                     step2();
+                } else if (currentURL.includes('#step-3')) {
+                    step3();
                 }
             }
 
@@ -303,6 +333,20 @@
                     });
                 });
             }
+
+            function step3() {
+                const reservationItems = document.querySelectorAll('.reservation-item');
+
+                reservationItems.forEach(item => {
+                    item.addEventListener('click', () => {
+                        reservationItems.forEach(otherItem => {
+                            otherItem.classList.remove('reservation-item-selected');
+                        });
+                        item.classList.add('reservation-item-selected');
+                    });
+                });
+            }
+
 
         });
 

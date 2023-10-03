@@ -959,3 +959,85 @@ blockquote {
 	top: 0;
 	left: -2400px;
 }
+
+
+
+
+
+ /* Stilizare pentru input-ul datepicker */
+#datepicker {
+    width: 200px; /* Lățimea câmpului de intrare */
+    padding: 10px;
+    font-size: 16px;
+}
+
+/* Stilizare pentru datepickerul pop-up */
+.datepicker {
+    font-size: 14px;
+    background-color: #fff; /* Culoarea fundalului */
+    border: 1px solid #ccc;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Umbră */
+}
+
+/* Stilizare pentru zilele calendarului */
+.datepicker table td.day {
+    padding: 5px;
+    text-align: center;
+}
+
+/* Stilizare pentru zilele selectabile */
+.datepicker table td.day.enabled:hover {
+    background-color: #f0f0f0; /* Culoare de fundal la hover */
+    cursor: pointer; /* Cursor de mână la hover */
+}
+
+
+
+
+
+
+
+
+.reservation-item {
+    border-style: solid;
+    border-width: 1px;
+    border-color: darkgray;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 15px;
+    text-align: center;
+    background-color: transparent;
+}
+
+.reservation-class-item {
+    border-style: solid;
+    border-width: 1px;
+    border-color: darkgray;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 15px;
+    text-align: left;
+    padding: 10px;
+    font-size: 16px;
+    line-height:32px;
+    background-color: transparent;
+}
+
+.reservation-item-selected {
+    background-color: #5bc0de !important;
+}
+
+.noReservation {
+    font-size:16px;
+}
+
+.reservationResponse {
+    font-size: 18px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.datepicker-title {
+    background-color: #f0ad4e;
+    color: white;
+}

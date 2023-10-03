@@ -2,7 +2,7 @@ from . import db
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
-
+import datetime
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -45,7 +45,9 @@ class Appointment(db.Model):
     idService = db.Column(db.Integer, db.ForeignKey('service.id'), nullable=False)
     idStaff = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     notes = db.Column(db.String(255))
-    timedate = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    # timedate = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    datetime = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+
     duration = db.Column(db.Integer, nullable=False)  # Durata în minute
     state = db.Column(db.String(20), default='Scheduled', nullable=False)
 

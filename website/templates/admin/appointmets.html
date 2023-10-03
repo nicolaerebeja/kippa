@@ -33,22 +33,22 @@
                         {% for appointmet in appointmets %}
                             <tr id="{{ appointmet.id }}">
                                 <td>
-                                    <p class="text-sm font-weight-normal mb-0">{{ service.timedate }}</p>
+                                    <p class="text-sm font-weight-normal mb-0">{{ appointmet.datetime }}</p>
                                 </td>
                                 <td>
-                                    <p class="text-sm font-weight-normal mb-0">{{ service.idCustomer }}</p>
+                                    <p class="text-sm font-weight-normal mb-0">{{ appointmet.idCustomer }}</p>
                                 </td>
                                 <td>
-                                    <p class="text-sm font-weight-normal mb-0">{{ service.idService }}</p>
+                                    <p class="text-sm font-weight-normal mb-0">{{ appointmet.idService }}</p>
                                 </td>
                                 <td>
-                                    <p class="text-sm font-weight-normal mb-0">{{ service.idStaff }}</p>
+                                    <p class="text-sm font-weight-normal mb-0">{{ appointmet.idStaff }}</p>
                                 </td>
                                 <td>
-                                    <p class="text-sm font-weight-normal mb-0">{{ service.state }}</p>
+                                    <p class="text-sm font-weight-normal mb-0">{{ appointmet.state }}</p>
                                 </td>
                                 <td>
-                                    <p class="text-sm font-weight-normal mb-0">{{ service.notes }}</p>
+                                    <p class="text-sm font-weight-normal mb-0">{{ appointmet.notes }}</p>
                                 </td>
                             </tr>
                         {% endfor %}
