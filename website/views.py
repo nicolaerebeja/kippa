@@ -9,6 +9,7 @@ from .controllers.admin.ServiceController import service
 from .controllers.admin.AppointmentController import appointmets
 
 from .controllers.HomeController import home
+from .controllers.client.AppointmentController import appointmet
 
 views = Blueprint('views', __name__)
 
@@ -20,4 +21,4 @@ views.route('/admin/appointments', methods=['GET', 'POST'])(appointmets)
 
 
 views.route('/', methods=['GET', 'POST'])(home)
-
+views.route('/appuntamento', methods=['GET', 'POST'])(appointmet)
