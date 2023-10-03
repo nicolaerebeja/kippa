@@ -7,6 +7,10 @@
             color: green;
         }
     </style>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+
 {% endblock %}
 
 {% block content %}
@@ -118,318 +122,14 @@
                                      style="position: static; left: 0px; display: none;">
                                     <div class="row" style="margin-top:20px">
                                         <div class="col-xs-12 col-md-3">
-                                            <div id="resDate">
-                                                <div class="datepicker datepicker-inline">
-                                                    <div class="datepicker-days" style="display: block;">
-                                                        <table class="table-condensed">
-                                                            <thead>
-                                                            <tr>
-                                                                <th colspan="7" class="datepicker-title"
-                                                                    style="display: table-cell;">Seleziona una data
-                                                                </th>
-                                                            </tr>
-                                                            <tr>
-                                                                <th class="prev disabled">«</th>
-                                                                <th colspan="5" class="datepicker-switch">Ottobre 2023
-                                                                </th>
-                                                                <th class="next">»</th>
-                                                            </tr>
-                                                            <tr>
-                                                                <th class="dow">Lu</th>
-                                                                <th class="dow">Ma</th>
-                                                                <th class="dow">Me</th>
-                                                                <th class="dow">Gi</th>
-                                                                <th class="dow">Ve</th>
-                                                                <th class="dow">Sa</th>
-                                                                <th class="dow">Do</th>
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            <tr>
-                                                                <td class="old disabled day disabled datePast"
-                                                                    data-date="1695600000000">25
-                                                                </td>
-                                                                <td class="old disabled day disabled datePast"
-                                                                    data-date="1695686400000">26
-                                                                </td>
-                                                                <td class="old disabled day disabled datePast"
-                                                                    data-date="1695772800000">27
-                                                                </td>
-                                                                <td class="old disabled day disabled datePast"
-                                                                    data-date="1695859200000">28
-                                                                </td>
-                                                                <td class="old disabled day disabled datePast"
-                                                                    data-date="1695945600000">29
-                                                                </td>
-                                                                <td class="old disabled disabled-date day disabled datePast"
-                                                                    data-date="1696032000000">30
-                                                                </td>
-                                                                <td class="disabled disabled-date day disabled datePast"
-                                                                    data-date="1696118400000">1
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="day disabled datePast"
-                                                                    data-date="1696204800000">2
-                                                                </td>
-                                                                <td class="day" data-date="1696291200000">3</td>
-                                                                <td class="active day" data-date="1696377600000">4</td>
-                                                                <td class="day" data-date="1696464000000">5</td>
-                                                                <td class="day" data-date="1696550400000">6</td>
-                                                                <td class="disabled disabled-date day"
-                                                                    data-date="1696636800000">7
-                                                                </td>
-                                                                <td class="disabled disabled-date day"
-                                                                    data-date="1696723200000">8
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="day" data-date="1696809600000">9</td>
-                                                                <td class="day" data-date="1696896000000">10</td>
-                                                                <td class="day" data-date="1696982400000">11</td>
-                                                                <td class="day" data-date="1697068800000">12</td>
-                                                                <td class="day" data-date="1697155200000">13</td>
-                                                                <td class="disabled disabled-date day"
-                                                                    data-date="1697241600000">14
-                                                                </td>
-                                                                <td class="disabled disabled-date day"
-                                                                    data-date="1697328000000">15
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="day" data-date="1697414400000">16</td>
-                                                                <td class="day" data-date="1697500800000">17</td>
-                                                                <td class="day" data-date="1697587200000">18</td>
-                                                                <td class="day" data-date="1697673600000">19</td>
-                                                                <td class="day" data-date="1697760000000">20</td>
-                                                                <td class="disabled disabled-date day"
-                                                                    data-date="1697846400000">21
-                                                                </td>
-                                                                <td class="disabled disabled-date day"
-                                                                    data-date="1697932800000">22
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="day" data-date="1698019200000">23</td>
-                                                                <td class="day" data-date="1698105600000">24</td>
-                                                                <td class="day" data-date="1698192000000">25</td>
-                                                                <td class="day" data-date="1698278400000">26</td>
-                                                                <td class="day" data-date="1698364800000">27</td>
-                                                                <td class="disabled disabled-date day"
-                                                                    data-date="1698451200000">28
-                                                                </td>
-                                                                <td class="disabled disabled-date day"
-                                                                    data-date="1698537600000">29
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="day" data-date="1698624000000">30</td>
-                                                                <td class="day" data-date="1698710400000">31</td>
-                                                                <td class="new day" data-date="1698796800000">1</td>
-                                                                <td class="new day" data-date="1698883200000">2</td>
-                                                                <td class="new day" data-date="1698969600000">3</td>
-                                                                <td class="new disabled disabled-date day"
-                                                                    data-date="1699056000000">4
-                                                                </td>
-                                                                <td class="new disabled disabled-date day"
-                                                                    data-date="1699142400000">5
-                                                                </td>
-                                                            </tr>
-                                                            </tbody>
-                                                            <tfoot>
-                                                            <tr>
-                                                                <th colspan="7" class="today" style="display: none;">
-                                                                    Oggi
-                                                                </th>
-                                                            </tr>
-                                                            <tr>
-                                                                <th colspan="7" class="clear" style="display: none;">
-                                                                    Cancella
-                                                                </th>
-                                                            </tr>
-                                                            </tfoot>
-                                                        </table>
-                                                    </div>
-                                                    <div class="datepicker-months" style="display: none;">
-                                                        <table class="table-condensed">
-                                                            <thead>
-                                                            <tr>
-                                                                <th colspan="7" class="datepicker-title"
-                                                                    style="display: table-cell;">Seleziona una data
-                                                                </th>
-                                                            </tr>
-                                                            <tr>
-                                                                <th class="prev disabled">«</th>
-                                                                <th colspan="5" class="datepicker-switch">2023</th>
-                                                                <th class="next">»</th>
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            <tr>
-                                                                <td colspan="7"><span
-                                                                        class="month disabled">Gen</span><span
-                                                                        class="month disabled">Feb</span><span
-                                                                        class="month disabled">Mar</span><span
-                                                                        class="month disabled">Apr</span><span
-                                                                        class="month disabled">Mag</span><span
-                                                                        class="month disabled">Giu</span><span
-                                                                        class="month disabled">Lug</span><span
-                                                                        class="month disabled">Ago</span><span
-                                                                        class="month disabled">Set</span><span
-                                                                        class="month focused active">Ott</span><span
-                                                                        class="month">Nov</span><span
-                                                                        class="month">Dic</span></td>
-                                                            </tr>
-                                                            </tbody>
-                                                            <tfoot>
-                                                            <tr>
-                                                                <th colspan="7" class="today" style="display: none;">
-                                                                    Oggi
-                                                                </th>
-                                                            </tr>
-                                                            <tr>
-                                                                <th colspan="7" class="clear" style="display: none;">
-                                                                    Cancella
-                                                                </th>
-                                                            </tr>
-                                                            </tfoot>
-                                                        </table>
-                                                    </div>
-                                                    <div class="datepicker-years" style="display: none;">
-                                                        <table class="table-condensed">
-                                                            <thead>
-                                                            <tr>
-                                                                <th colspan="7" class="datepicker-title"
-                                                                    style="display: table-cell;">Seleziona una data
-                                                                </th>
-                                                            </tr>
-                                                            <tr>
-                                                                <th class="prev disabled">«</th>
-                                                                <th colspan="5" class="datepicker-switch">2020-2029</th>
-                                                                <th class="next">»</th>
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            <tr>
-                                                                <td colspan="7"><span
-                                                                        class="year old disabled">2019</span><span
-                                                                        class="year disabled">2020</span><span
-                                                                        class="year disabled">2021</span><span
-                                                                        class="year disabled">2022</span><span
-                                                                        class="year active focused">2023</span><span
-                                                                        class="year">2024</span><span
-                                                                        class="year">2025</span><span
-                                                                        class="year">2026</span><span
-                                                                        class="year">2027</span><span
-                                                                        class="year">2028</span><span
-                                                                        class="year">2029</span><span class="year new">2030</span>
-                                                                </td>
-                                                            </tr>
-                                                            </tbody>
-                                                            <tfoot>
-                                                            <tr>
-                                                                <th colspan="7" class="today" style="display: none;">
-                                                                    Oggi
-                                                                </th>
-                                                            </tr>
-                                                            <tr>
-                                                                <th colspan="7" class="clear" style="display: none;">
-                                                                    Cancella
-                                                                </th>
-                                                            </tr>
-                                                            </tfoot>
-                                                        </table>
-                                                    </div>
-                                                    <div class="datepicker-decades" style="display: none;">
-                                                        <table class="table-condensed">
-                                                            <thead>
-                                                            <tr>
-                                                                <th colspan="7" class="datepicker-title"
-                                                                    style="display: table-cell;">Seleziona una data
-                                                                </th>
-                                                            </tr>
-                                                            <tr>
-                                                                <th class="prev disabled">«</th>
-                                                                <th colspan="5" class="datepicker-switch">2000-2090</th>
-                                                                <th class="next">»</th>
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            <tr>
-                                                                <td colspan="7"><span
-                                                                        class="decade old disabled">1990</span><span
-                                                                        class="decade disabled">2000</span><span
-                                                                        class="decade disabled">2010</span><span
-                                                                        class="decade active disabled focused">2020</span><span
-                                                                        class="decade">2030</span><span class="decade">2040</span><span
-                                                                        class="decade">2050</span><span class="decade">2060</span><span
-                                                                        class="decade">2070</span><span class="decade">2080</span><span
-                                                                        class="decade">2090</span><span
-                                                                        class="decade new">2100</span></td>
-                                                            </tr>
-                                                            </tbody>
-                                                            <tfoot>
-                                                            <tr>
-                                                                <th colspan="7" class="today" style="display: none;">
-                                                                    Oggi
-                                                                </th>
-                                                            </tr>
-                                                            <tr>
-                                                                <th colspan="7" class="clear" style="display: none;">
-                                                                    Cancella
-                                                                </th>
-                                                            </tr>
-                                                            </tfoot>
-                                                        </table>
-                                                    </div>
-                                                    <div class="datepicker-centuries" style="display: none;">
-                                                        <table class="table-condensed">
-                                                            <thead>
-                                                            <tr>
-                                                                <th colspan="7" class="datepicker-title"
-                                                                    style="display: table-cell;">Seleziona una data
-                                                                </th>
-                                                            </tr>
-                                                            <tr>
-                                                                <th class="prev disabled">«</th>
-                                                                <th colspan="5" class="datepicker-switch">2000-2900</th>
-                                                                <th class="next">»</th>
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            <tr>
-                                                                <td colspan="7"><span
-                                                                        class="century old disabled">1900</span><span
-                                                                        class="century active disabled focused">2000</span><span
-                                                                        class="century">2100</span><span
-                                                                        class="century">2200</span><span
-                                                                        class="century">2300</span><span
-                                                                        class="century">2400</span><span
-                                                                        class="century">2500</span><span
-                                                                        class="century">2600</span><span
-                                                                        class="century">2700</span><span
-                                                                        class="century">2800</span><span
-                                                                        class="century">2900</span><span
-                                                                        class="century new">3000</span></td>
-                                                            </tr>
-                                                            </tbody>
-                                                            <tfoot>
-                                                            <tr>
-                                                                <th colspan="7" class="today" style="display: none;">
-                                                                    Oggi
-                                                                </th>
-                                                            </tr>
-                                                            <tr>
-                                                                <th colspan="7" class="clear" style="display: none;">
-                                                                    Cancella
-                                                                </th>
-                                                            </tr>
-                                                            </tfoot>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
+
+
+                                            <div id="datepicker"></div>
+
+
                                         </div>
+
+
                                         <div class="col-xs-12 col-md-9">
                                             <div class="row" id="resAvailable" style="margin-top:20px">
                                                 <div class="col-md-12" style="margin-bottom:20px">Orari disponibili:
@@ -491,10 +191,26 @@
 
 {% block scripts %}
 
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.it.min.js"></script>
 
     <script>
 
+        $('#datepicker').datepicker({
+            format: "dd/mm/yyyy",
+            language: "it",
+            daysOfWeekDisabled: "0,6",
+            todayHighlight: true,
+            beforeShowDay: function (date) {
+                // Lista cu zilele lucrătoare (0 = Duminică, 6 = Sâmbătă)
+                var workingDays = [1, 2, 3, 4, 5]; // Luni până Vineri
+
+                // Verifică dacă data este o zi lucrătoare
+                var dayOfWeek = date.getDay();
+                return [workingDays.indexOf(dayOfWeek) !== -1];
+            }
+
+        });
 
         $('#smartwizard').smartWizard({});
 
@@ -592,4 +308,6 @@
 
 
     </script>
+
+
 {% endblock %}
