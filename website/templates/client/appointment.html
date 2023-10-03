@@ -1,23 +1,595 @@
 {% extends "client/base.html" %}
 
+{% block style %}
+    <style>
+        .selected {
+            border: solid;
+            color: green;
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
 
-<section data-bs-version="5.1" class="features6 cid-sXTmOgU3Ke" id="afeatures6-2">
+    <section data-bs-version="5.1" class="features6 cid-sXTmOgU3Ke" id="afeatures6-2">
 
 
-    <div class="container">
-        <div class="row justify-content-center">
+        <div class="container">
+            <div class="row justify-content-center">
 
-            <div class="col-12 col-lg-6 col-md-7 col-text">
-                <div class="text-wrapper">
-                    <h1 class="mbr-section-title mbr-fonts-style display-5"><strong>Prenotazione di un appuntamento</strong></h1>
+                <div class="col-12 col-lg-12 col-md-7 col-text">
+                    <div class="text-wrapper">
+                        <h1 class="mbr-section-title mbr-fonts-style display-5 mb-5"><strong>Prenotazione di un
+                            appuntamento</strong></h1>
 
+                        <!-- SmartWizard html -->
+                        <div id="smartwizard" dir="" class="sw sw-theme-arrows">
+                            <ul class="nav nav-progress">
+                                <li class="nav-item">
+                                    <a class="nav-link default active" href="#step-1">
+                                        <div class="num">1</div>
+                                        Accesso
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link default" href="#step-2">
+                                        <span class="num">2</span>
+                                        Scelta del servizio
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link default" href="#step-3">
+                                        <span class="num">3</span>
+                                        Scelta dell'orario
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link default" href="#step-4">
+                                        <span class="num">4</span>
+                                        Conferma
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content" style="height: 187.188px;">
+
+                                <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1"
+                                     style="position: static; left: 0px; display: block;">
+                                    <div class="container">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="email">Indirizzo e-mail</label>
+                                                <input type="email" class="form-control" id="email" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="password">Password</label>
+                                                <input type="password" class="form-control" id="password" required>
+                                            </div>
+
+                                            <a class="btn btn-primary" id="login" href="javascript:void(0)">
+                                                Accedi
+                                            </a>
+                                        </form>
+                                        <div id="success-alert" class="alert alert-success" role="alert"
+                                             style="display: none;">
+                                            Accesso riuscito
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2"
+                                     style="position: static; left: 0px; display: none;">
+                                    <div class="table-responsive">
+                                        <table class="table align-items-center mb-0">
+                                            <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for service in services %}
+                                                <tr id="{{ service.id }}" class="clickable">
+                                                    <td>
+                                                        <div class="d-flex px-2 py-1">
+                                                            <div>
+                                                                <img src="https://png.pngtree.com/png-clipart/20200225/original/pngtree-customer-service-icon-png-image_5257338.jpg"
+                                                                     class="avatar avatar-sm me-3"
+                                                                     alt="avatar image" style=" width: 50px;">
+                                                            </div>
+                                                            <div class="d-flex flex-column justify-content-center">
+                                                                <h6 class="mb-2 font-weight-normal text-sm">{{ service.name }}</h6>
+                                                                <p class="text-sm font-weight-normal mb-0">{{ service.duration }}
+                                                                    minuti</p>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <span class="mbr-iconfont mbri-cursor-click mobi-mbri"></span>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div id="step-3" class="tab-pane" role="tabpanel" aria-labelledby="step-3"
+                                     style="position: static; left: 0px; display: none;">
+                                    <div class="row" style="margin-top:20px">
+                                        <div class="col-xs-12 col-md-3">
+                                            <div id="resDate">
+                                                <div class="datepicker datepicker-inline">
+                                                    <div class="datepicker-days" style="display: block;">
+                                                        <table class="table-condensed">
+                                                            <thead>
+                                                            <tr>
+                                                                <th colspan="7" class="datepicker-title"
+                                                                    style="display: table-cell;">Seleziona una data
+                                                                </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="prev disabled">«</th>
+                                                                <th colspan="5" class="datepicker-switch">Ottobre 2023
+                                                                </th>
+                                                                <th class="next">»</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="dow">Lu</th>
+                                                                <th class="dow">Ma</th>
+                                                                <th class="dow">Me</th>
+                                                                <th class="dow">Gi</th>
+                                                                <th class="dow">Ve</th>
+                                                                <th class="dow">Sa</th>
+                                                                <th class="dow">Do</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr>
+                                                                <td class="old disabled day disabled datePast"
+                                                                    data-date="1695600000000">25
+                                                                </td>
+                                                                <td class="old disabled day disabled datePast"
+                                                                    data-date="1695686400000">26
+                                                                </td>
+                                                                <td class="old disabled day disabled datePast"
+                                                                    data-date="1695772800000">27
+                                                                </td>
+                                                                <td class="old disabled day disabled datePast"
+                                                                    data-date="1695859200000">28
+                                                                </td>
+                                                                <td class="old disabled day disabled datePast"
+                                                                    data-date="1695945600000">29
+                                                                </td>
+                                                                <td class="old disabled disabled-date day disabled datePast"
+                                                                    data-date="1696032000000">30
+                                                                </td>
+                                                                <td class="disabled disabled-date day disabled datePast"
+                                                                    data-date="1696118400000">1
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="day disabled datePast"
+                                                                    data-date="1696204800000">2
+                                                                </td>
+                                                                <td class="day" data-date="1696291200000">3</td>
+                                                                <td class="active day" data-date="1696377600000">4</td>
+                                                                <td class="day" data-date="1696464000000">5</td>
+                                                                <td class="day" data-date="1696550400000">6</td>
+                                                                <td class="disabled disabled-date day"
+                                                                    data-date="1696636800000">7
+                                                                </td>
+                                                                <td class="disabled disabled-date day"
+                                                                    data-date="1696723200000">8
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="day" data-date="1696809600000">9</td>
+                                                                <td class="day" data-date="1696896000000">10</td>
+                                                                <td class="day" data-date="1696982400000">11</td>
+                                                                <td class="day" data-date="1697068800000">12</td>
+                                                                <td class="day" data-date="1697155200000">13</td>
+                                                                <td class="disabled disabled-date day"
+                                                                    data-date="1697241600000">14
+                                                                </td>
+                                                                <td class="disabled disabled-date day"
+                                                                    data-date="1697328000000">15
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="day" data-date="1697414400000">16</td>
+                                                                <td class="day" data-date="1697500800000">17</td>
+                                                                <td class="day" data-date="1697587200000">18</td>
+                                                                <td class="day" data-date="1697673600000">19</td>
+                                                                <td class="day" data-date="1697760000000">20</td>
+                                                                <td class="disabled disabled-date day"
+                                                                    data-date="1697846400000">21
+                                                                </td>
+                                                                <td class="disabled disabled-date day"
+                                                                    data-date="1697932800000">22
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="day" data-date="1698019200000">23</td>
+                                                                <td class="day" data-date="1698105600000">24</td>
+                                                                <td class="day" data-date="1698192000000">25</td>
+                                                                <td class="day" data-date="1698278400000">26</td>
+                                                                <td class="day" data-date="1698364800000">27</td>
+                                                                <td class="disabled disabled-date day"
+                                                                    data-date="1698451200000">28
+                                                                </td>
+                                                                <td class="disabled disabled-date day"
+                                                                    data-date="1698537600000">29
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="day" data-date="1698624000000">30</td>
+                                                                <td class="day" data-date="1698710400000">31</td>
+                                                                <td class="new day" data-date="1698796800000">1</td>
+                                                                <td class="new day" data-date="1698883200000">2</td>
+                                                                <td class="new day" data-date="1698969600000">3</td>
+                                                                <td class="new disabled disabled-date day"
+                                                                    data-date="1699056000000">4
+                                                                </td>
+                                                                <td class="new disabled disabled-date day"
+                                                                    data-date="1699142400000">5
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                            <tfoot>
+                                                            <tr>
+                                                                <th colspan="7" class="today" style="display: none;">
+                                                                    Oggi
+                                                                </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th colspan="7" class="clear" style="display: none;">
+                                                                    Cancella
+                                                                </th>
+                                                            </tr>
+                                                            </tfoot>
+                                                        </table>
+                                                    </div>
+                                                    <div class="datepicker-months" style="display: none;">
+                                                        <table class="table-condensed">
+                                                            <thead>
+                                                            <tr>
+                                                                <th colspan="7" class="datepicker-title"
+                                                                    style="display: table-cell;">Seleziona una data
+                                                                </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="prev disabled">«</th>
+                                                                <th colspan="5" class="datepicker-switch">2023</th>
+                                                                <th class="next">»</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr>
+                                                                <td colspan="7"><span
+                                                                        class="month disabled">Gen</span><span
+                                                                        class="month disabled">Feb</span><span
+                                                                        class="month disabled">Mar</span><span
+                                                                        class="month disabled">Apr</span><span
+                                                                        class="month disabled">Mag</span><span
+                                                                        class="month disabled">Giu</span><span
+                                                                        class="month disabled">Lug</span><span
+                                                                        class="month disabled">Ago</span><span
+                                                                        class="month disabled">Set</span><span
+                                                                        class="month focused active">Ott</span><span
+                                                                        class="month">Nov</span><span
+                                                                        class="month">Dic</span></td>
+                                                            </tr>
+                                                            </tbody>
+                                                            <tfoot>
+                                                            <tr>
+                                                                <th colspan="7" class="today" style="display: none;">
+                                                                    Oggi
+                                                                </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th colspan="7" class="clear" style="display: none;">
+                                                                    Cancella
+                                                                </th>
+                                                            </tr>
+                                                            </tfoot>
+                                                        </table>
+                                                    </div>
+                                                    <div class="datepicker-years" style="display: none;">
+                                                        <table class="table-condensed">
+                                                            <thead>
+                                                            <tr>
+                                                                <th colspan="7" class="datepicker-title"
+                                                                    style="display: table-cell;">Seleziona una data
+                                                                </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="prev disabled">«</th>
+                                                                <th colspan="5" class="datepicker-switch">2020-2029</th>
+                                                                <th class="next">»</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr>
+                                                                <td colspan="7"><span
+                                                                        class="year old disabled">2019</span><span
+                                                                        class="year disabled">2020</span><span
+                                                                        class="year disabled">2021</span><span
+                                                                        class="year disabled">2022</span><span
+                                                                        class="year active focused">2023</span><span
+                                                                        class="year">2024</span><span
+                                                                        class="year">2025</span><span
+                                                                        class="year">2026</span><span
+                                                                        class="year">2027</span><span
+                                                                        class="year">2028</span><span
+                                                                        class="year">2029</span><span class="year new">2030</span>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                            <tfoot>
+                                                            <tr>
+                                                                <th colspan="7" class="today" style="display: none;">
+                                                                    Oggi
+                                                                </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th colspan="7" class="clear" style="display: none;">
+                                                                    Cancella
+                                                                </th>
+                                                            </tr>
+                                                            </tfoot>
+                                                        </table>
+                                                    </div>
+                                                    <div class="datepicker-decades" style="display: none;">
+                                                        <table class="table-condensed">
+                                                            <thead>
+                                                            <tr>
+                                                                <th colspan="7" class="datepicker-title"
+                                                                    style="display: table-cell;">Seleziona una data
+                                                                </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="prev disabled">«</th>
+                                                                <th colspan="5" class="datepicker-switch">2000-2090</th>
+                                                                <th class="next">»</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr>
+                                                                <td colspan="7"><span
+                                                                        class="decade old disabled">1990</span><span
+                                                                        class="decade disabled">2000</span><span
+                                                                        class="decade disabled">2010</span><span
+                                                                        class="decade active disabled focused">2020</span><span
+                                                                        class="decade">2030</span><span class="decade">2040</span><span
+                                                                        class="decade">2050</span><span class="decade">2060</span><span
+                                                                        class="decade">2070</span><span class="decade">2080</span><span
+                                                                        class="decade">2090</span><span
+                                                                        class="decade new">2100</span></td>
+                                                            </tr>
+                                                            </tbody>
+                                                            <tfoot>
+                                                            <tr>
+                                                                <th colspan="7" class="today" style="display: none;">
+                                                                    Oggi
+                                                                </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th colspan="7" class="clear" style="display: none;">
+                                                                    Cancella
+                                                                </th>
+                                                            </tr>
+                                                            </tfoot>
+                                                        </table>
+                                                    </div>
+                                                    <div class="datepicker-centuries" style="display: none;">
+                                                        <table class="table-condensed">
+                                                            <thead>
+                                                            <tr>
+                                                                <th colspan="7" class="datepicker-title"
+                                                                    style="display: table-cell;">Seleziona una data
+                                                                </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="prev disabled">«</th>
+                                                                <th colspan="5" class="datepicker-switch">2000-2900</th>
+                                                                <th class="next">»</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr>
+                                                                <td colspan="7"><span
+                                                                        class="century old disabled">1900</span><span
+                                                                        class="century active disabled focused">2000</span><span
+                                                                        class="century">2100</span><span
+                                                                        class="century">2200</span><span
+                                                                        class="century">2300</span><span
+                                                                        class="century">2400</span><span
+                                                                        class="century">2500</span><span
+                                                                        class="century">2600</span><span
+                                                                        class="century">2700</span><span
+                                                                        class="century">2800</span><span
+                                                                        class="century">2900</span><span
+                                                                        class="century new">3000</span></td>
+                                                            </tr>
+                                                            </tbody>
+                                                            <tfoot>
+                                                            <tr>
+                                                                <th colspan="7" class="today" style="display: none;">
+                                                                    Oggi
+                                                                </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th colspan="7" class="clear" style="display: none;">
+                                                                    Cancella
+                                                                </th>
+                                                            </tr>
+                                                            </tfoot>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-9">
+                                            <div class="row" id="resAvailable" style="margin-top:20px">
+                                                <div class="col-md-12" style="margin-bottom:20px">Orari disponibili:
+                                                </div>
+                                                <div class="col-xs-6 col-md-3">
+                                                    <div class="reservation-item" data-reservation-hours-ind="0">
+                                                        <div class="reservation-item-hours">09:00 - 10:00</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6 col-md-3">
+                                                    <div class="reservation-item" data-reservation-hours-ind="1">
+                                                        <div class="reservation-item-hours">10:00 - 11:00</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6 col-md-3">
+                                                    <div class="reservation-item" data-reservation-hours-ind="2">
+                                                        <div class="reservation-item-hours">11:00 - 12:00</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6 col-md-3">
+                                                    <div class="reservation-item" data-reservation-hours-ind="3">
+                                                        <div class="reservation-item-hours">12:00 - 13:00</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6 col-md-3">
+                                                    <div class="reservation-item" data-reservation-hours-ind="4">
+                                                        <div class="reservation-item-hours">14:00 - 15:00</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6 col-md-3">
+                                                    <div class="reservation-item" data-reservation-hours-ind="5">
+                                                        <div class="reservation-item-hours">15:00 - 16:00</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="step-4" class="tab-pane" role="tabpanel" aria-labelledby="step-4"
+                                     style="position: static; left: 0px; display: none;">
+                                    <h3>Step 4 Content</h3>
+                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25"
+                                 aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
-    </div>
-</section>
+    </section>
 
+{% endblock %}
+
+{% block scripts %}
+
+
+
+    <script>
+
+
+        $('#smartwizard').smartWizard({});
+
+        $(document).ready(function () {
+
+
+            function disable() {
+                document.querySelector("#smartwizard > div.sw-toolbar-elm.toolbar.toolbar-bottom > button.btn.sw-btn-next.sw-btn").id = 'next'
+                document.getElementById('next').classList.add('disabled')
+            }
+
+            disable();
+
+            function checkURL() {
+                var currentURL = window.location.href;
+                if (currentURL.includes('#step-1')) {
+                    step1();
+                } else if (currentURL.includes('#step-2')) {
+                    step2();
+                }
+            }
+
+            setInterval(checkURL, 1000);
+
+            function step1() {
+                var loginBtn = document.getElementById('login');
+                loginBtn.addEventListener('click', function () {
+                    var emailInput = document.getElementById("email");
+                    var passwordInput = document.getElementById("password");
+
+                    var email = emailInput.value;
+                    var password = passwordInput.value;
+
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "/client-login", true);
+                    xhr.setRequestHeader("Content-Type", "application/json");
+
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            // Răspunsul de la server (dacă este necesar)
+                            var response = xhr.responseText;
+                            const clientId = response.message;
+                            localStorage.setItem('clientId', clientId);
+                            showSuccessAlert();
+
+                            {#$('#smartwizard').smartWizard("next");#}
+                            setTimeout(() => {
+                                document.getElementById('next').classList.remove('disabled')
+                            }, 1000);
+
+                        }
+                    };
+
+                    var data = {
+                        email: email,
+                        password: password
+                    };
+
+                    var jsonData = JSON.stringify(data);
+
+                    xhr.send(jsonData);
+                });
+
+                function showSuccessAlert() {
+                    var successAlert = document.getElementById('success-alert');
+                    successAlert.style.display = 'block';
+
+                    document.querySelector("#step-1 > div > form").hidden = true
+                }
+            }
+
+
+            function step2() {
+                var clickableElements = document.querySelectorAll('.clickable');
+                const hasSelected = Array.from(clickableElements).some(element => element.classList.contains('selected'));
+                hasSelected ? '' : disable();
+
+                clickableElements.forEach(function (element) {
+                    element.addEventListener('click', function () {
+                        if (!element.classList.contains('selected')) {
+                            clickableElements.forEach(function (otherElement) {
+                                otherElement.classList.remove('selected');
+                            });
+                            element.classList.add('selected');
+                            document.getElementById('next').classList.remove('disabled')
+                        } else {
+                            element.classList.remove('selected');
+                            document.getElementById('next').classList.add('disabled')
+                        }
+                    });
+                });
+            }
+
+        });
+
+
+    </script>
 {% endblock %}
