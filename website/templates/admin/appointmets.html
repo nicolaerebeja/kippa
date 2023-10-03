@@ -1,0 +1,84 @@
+{% extends "admin/base.html" %}
+{% block title1 %}Appuntamenti{% endblock %}
+{% block title %}Appuntamenti{% endblock %}
+
+{% block style %}
+    <style>
+        tr[id] {
+            cursor: pointer;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+
+    <div class="row my-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="table align-items-center mb-0">
+                        <thead>
+                        <tr>
+                            <th class="text-uppercase text-xxs font-weight-bolder opacity-7">Data e Ora</th>
+                            <th class="text-uppercase text-xxs font-weight-bolder opacity-7 ps-2">Cliente</th>
+                            <th class="text-uppercase text-xxs font-weight-bolder opacity-7 ps-2">Servizio</th>
+                            <th class="text-uppercase text-xxs font-weight-bolder opacity-7 ps-2">Staff</th>
+                            <th class="text-uppercase text-xxs font-weight-bolder opacity-7 ps-2">Stato</th>
+                            <th class="text-uppercase text-xxs font-weight-bolder opacity-7 ps-2">Note</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        {% for appointmet in appointmets %}
+                            <tr id="{{ appointmet.id }}">
+                                <td>
+                                    <p class="text-sm font-weight-normal mb-0">{{ service.timedate }}</p>
+                                </td>
+                                <td>
+                                    <p class="text-sm font-weight-normal mb-0">{{ service.idCustomer }}</p>
+                                </td>
+                                <td>
+                                    <p class="text-sm font-weight-normal mb-0">{{ service.idService }}</p>
+                                </td>
+                                <td>
+                                    <p class="text-sm font-weight-normal mb-0">{{ service.idStaff }}</p>
+                                </td>
+                                <td>
+                                    <p class="text-sm font-weight-normal mb-0">{{ service.state }}</p>
+                                </td>
+                                <td>
+                                    <p class="text-sm font-weight-normal mb-0">{{ service.notes }}</p>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+
+{% block scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        const rows = document.querySelectorAll('tr[id]');
+
+        // Adăugați un eveniment de clic pe fiecare rând
+        rows.forEach(row => {
+            row.addEventListener('click', () => {
+                // Obțineți id-ul din atributul data-id
+                const id = row.getAttribute('id');
+
+                // Afișați id-ul folosind alert() sau în alt mod dorit
+                alert(`ID: ${id}`);
+            });
+        });
+    </script>
+{% endblock %}

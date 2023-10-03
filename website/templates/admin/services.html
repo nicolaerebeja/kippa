@@ -1,6 +1,6 @@
 {% extends "admin/base.html" %}
-{% block title1 %}Clienti{% endblock %}
-{% block title %}Clienti{% endblock %}
+{% block title1 %}Servizi{% endblock %}
+{% block title %}Servizi{% endblock %}
 
 {% block style %}
 <style>
@@ -13,7 +13,7 @@ tr[id] {
 {% block content %}
 
 
-<button class="btn btn-primary" id="open-modal-button" type="button">Nuovo Cliente +</button>
+<button class="btn btn-primary" id="open-modal-button" type="button">Nuovo Servizio +</button>
 
     <div class="row my-4">
         <div class="col-12">
@@ -23,43 +23,27 @@ tr[id] {
                         <thead>
                         <tr>
                             <th class="text-uppercase text-xxs font-weight-bolder opacity-7">Name</th>
-                            <th class="text-uppercase text-xxs font-weight-bolder opacity-7 ps-2">Surname</th>
-                            <th class="text-uppercase text-xxs font-weight-bolder opacity-7 ps-2">Tel.</th>
-                            <th class="text-uppercase text-xxs font-weight-bolder opacity-7 ps-2">Email</th>
-                            <th class="text-uppercase text-xxs font-weight-bolder opacity-7 ps-2">PIVA</th>
-
+                            <th class="text-uppercase text-xxs font-weight-bolder opacity-7 ps-2">Duration</th>
                         </tr>
                         </thead>
                         <tbody>
 
-                        {% for customer in customers %}
-                        <tr id="{{ customer.id }}">
+                        {% for service in services %}
+                        <tr id="{{ service.id }}">
                             <td>
                                 <div class="d-flex px-2 py-1">
                                     <div>
-                                        <img src="https://cdn.iconscout.com/icon/free/png-256/free-avatar-370-456322.png?f=webp"
+                                        <img src="https://png.pngtree.com/png-clipart/20200225/original/pngtree-customer-service-icon-png-image_5257338.jpg"
                                              class="avatar avatar-sm me-3"
                                              alt="avatar image">
                                     </div>
                                     <div class="d-flex flex-column justify-content-center">
-                                        <h6 class="mb-0 font-weight-normal text-sm">{{ customer.name }}</h6>
+                                        <h6 class="mb-0 font-weight-normal text-sm">{{ service.name }}</h6>
                                     </div>
                                 </div>
                             </td>
                             <td>
-                                <p class="text-sm font-weight-normal mb-0">{{ customer.surname }}</p>
-                            </td>
-                            <td>
-                            <span class="badge badge-dot me-4">
-                            <i class="bg-info"></i>
-                            <span class="text-dark text-xs">{{ customer.tel }}</span>
-                            </span>
-                            </td>
-                            <td>
-                                <p class="mb-0 font-weight-normal text-sm">{{ customer.email }}</p>
-                            </td>
-                            <td>
-                                <p class="text-sm font-weight-normal mb-0">{{ customer.piva }}</p>
+                                <p class="text-sm font-weight-normal mb-0">{{ service.duration }}</p>
                             </td>
                         </tr>
                         {% endfor %}
@@ -83,7 +67,7 @@ const openModalButton = document.getElementById('open-modal-button');
 
 openModalButton.addEventListener('click', () => {
   Swal.fire({
-    title: 'Crea Nuovo Cliente',
+    title: 'Crea Servizio',
     html: `
       <form id="client-form">
         <div class="input-group input-group-static mb-4">
@@ -91,22 +75,9 @@ openModalButton.addEventListener('click', () => {
           <input type="text" class="form-control" id="name" required>
         </div>
         <div class="input-group input-group-static mb-4">
-          <label>Cognome</label>
-          <input type="text" class="form-control" id="surname" required>
+          <label>Durata (min.)</label>
+          <input type="number" class="form-control" id="duration" required>
         </div>
-        <div class="input-group input-group-static mb-4">
-          <label>Tel.</label>
-          <input type="tel" class="form-control" id="tel" required>
-        </div>
-        <div class="input-group input-group-static mb-4">
-          <label>Piva</label>
-          <input type="text" class="form-control" id="piva" required>
-        </div>
-        <div class="input-group input-group-static mb-4">
-          <label>Email</label>
-          <input type="email" class="form-control" id="email" required>
-        </div>
-
       </form>
     `,
     showCancelButton: true,
@@ -115,21 +86,18 @@ openModalButton.addEventListener('click', () => {
     focusConfirm: false,
       preConfirm: () => {
         const name = document.getElementById('name').value;
-        const surname = document.getElementById('surname').value;
-        const tel = document.getElementById('tel').value;
-        const piva = document.getElementById('piva').value;
-        const email = document.getElementById('email').value;
+        const duration = document.getElementById('duration').value;
 
         $.ajax({
-          url: '/admin/customers',
+          url: '/admin/services',
           method: 'POST',
-          data: { name, surname, tel, piva, email },
+          data: { name, duration },
           success: function (response) {
-            Swal.fire('Cliente creato con successo!', '', 'success');
+            Swal.fire('Servizio creato con successo!', '', 'success');
           },
           error: function (error) {
             console.error('Eroare:', error);
-            Swal.fire('Errore durante la creazione del cliente', 'Si è verificato un errore durante la creazione del client.', 'error');
+            Swal.fire('Errore durante la creazione del servizio', 'Si è verificato un errore durante la creazione del servizio.', 'error');
           }
         });
       }

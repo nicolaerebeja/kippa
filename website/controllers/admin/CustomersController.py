@@ -17,20 +17,17 @@ def customers():
         piva = request.form.get('piva')
         email = request.form.get('email')
 
-        # Generarea unei parole aleatoare pentru client
         password = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
 
-        # Crearea unui nou obiect Customer și adăugarea lui în baza de date
         new_customer = Customer(name=name, surname=surname, tel=tel, piva=piva, email=email, password=password)
         db.session.add(new_customer)
         db.session.commit()
 
         subject = 'Sol30 - Attivazione dell\'account'
-        # message =  f'Il tuo account per il portale delle prenotazioni on-line è stato attivato./n I dati di accesso sono i seguenti: /n/nLogin: {email} /n/nPassword: {password}  /n/nPer visualizzare il portale accedi all\'indirizzo: sol30.com'
         message = f'Il tuo account per il portale delle prenotazioni on-line è stato attivato.\nI dati di accesso sono i seguenti:\n\nLogin: {email}\nPassword: {password}\n\nPer visualizzare il portale accedi all\'indirizzo: sol30.com'
 
         send_email(email, subject, message)
 
-        # return redirect(url_for('views.customers'))
-
-    return render_template("admin/customers.html")
+    all_customers = Customer.query.all()
+    return render_template("admin/customers.html", customers=all_customers)
+    # return render_template("admin/customers.html")

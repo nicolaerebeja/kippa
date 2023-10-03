@@ -1,7 +1,7 @@
 from . import db
 from flask_login import UserMixin
-from sqlalchemy.sql import func
 from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import datetime
 
 
 class User(db.Model, UserMixin):
@@ -29,3 +29,36 @@ class Customer(db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
+
+class Service(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+    duration = db.Column(db.Integer, nullable=False)  # Durata în minute
+
+    def __init__(self, name, duration):
+        self.name = name
+        self.duration = duration
+
+class Appointment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    idCustomer = db.Column(db.Integer, db.ForeignKey('customer.id'), nullable=False)
+    idService = db.Column(db.Integer, db.ForeignKey('service.id'), nullable=False)
+    idStaff = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    notes = db.Column(db.String(255))
+    timedate = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    duration = db.Column(db.Integer, nullable=False)  # Durata în minute
+    state = db.Column(db.String(20), default='Scheduled', nullable=False)
+
+    # Definim relația către Customer, Service și User
+    customer = db.relationship('Customer', backref='appointments')
+    service = db.relationship('Service', backref='appointments')
+    staff = db.relationship('User', backref='appointments')
+
+    def __init__(self, idCustomer, idService, idStaff, notes, timedate, duration, state='Scheduled'):
+        self.idCustomer = idCustomer
+        self.idService = idService
+        self.idStaff = idStaff
+        self.notes = notes
+        self.timedate = timedate
+        self.duration = duration
+        self.state = state
