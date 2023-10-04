@@ -1,8 +1,17 @@
 from flask import render_template, request, jsonify
+
+from website.controllers.admin.EmailController import send_email
 from website.models import db, Service, Customer, Appointment
 from werkzeug.security import check_password_hash
 from datetime import datetime, timedelta
-from sqlalchemy import and_
+from sqlalchemy import func
+from urllib.parse import unquote
+
+# import logging
+#
+# logging.basicConfig()
+# logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
+
 
 def appointmet():
     # if request.method == 'POST':
@@ -17,34 +26,98 @@ def clientLogin():
     customer = Customer.query.filter_by(email=email).first()
 
     if customer and check_password_hash(customer.password, password):
-        return jsonify({'message': customer.id}), 200
+        customer_data = {
+            'id': customer.id,
+            'name': customer.name,
+            'surname': customer.surname,
+            'email': customer.email
+        }
+
+        return jsonify({'customer': customer_data}), 200
     else:
         return jsonify({'message': 'error'}), 401
 
 
 def datepicker():
     if request.method == 'POST':
-        appointments = Appointment.query.all()
+        selectedDate = request.form.get('selectedDate') # mi prendo la data sezionata dal cliente
+        # selectedDate: 2023-10-05 // questo e il formato
+        try:
+            appointment_datetime = datetime.strptime(selectedDate, "%Y-%m-%d") # provo a confertirla per il db
+        except ValueError:
+            return jsonify({'message': 'Invalid date or time format'}), 400
 
-        # Transformă lista de obiecte SQLAlchemy într-o listă de dicționare
-        appointments_list = []
+        appointment_date = appointment_datetime.date() # dopo la conversione si e aggiunto anche l'ora, quindi mi prendo solo il giorno
+
+        # eseguo query che peschi tutti gli appuntamenti di quel giorno
+        appointments = db.session.query(Appointment).filter(
+            func.date(Appointment.datetime) == appointment_date
+        ).all()
+
+        appointment_hours = [] # mi creo una lista per mettere solo le ore gia occupate
+
         for appointment in appointments:
-            appointment_dict = {
-                'id': appointment.id,
-                'idCustomer': appointment.idCustomer,
-                'idService': appointment.idService,
-                'idStaff': appointment.idStaff,
-                'notes': appointment.notes,
-                'datetime': appointment.datetime.strftime('%Y-%m-%d %H:%M:%S'),  # Convertiți în format de data și oră
-                'duration': appointment.duration,
-                'state': appointment.state
-            }
-            appointments_list.append(appointment_dict)
+            hour = appointment.datetime.strftime("%H") # prendo da dataora solo l'ora
+            appointment_hours.append(int(hour)) # la aggiungo alla lista
 
-        # Returnați lista de dicționare sub forma unui răspuns JSON
-        return jsonify(appointments_list)
+        available_time_day = [9, 10, 11, 12, 13, 14, 15] # questa e la lista del orarrio disponibile per appti.
+
+        available_time = [x for x in available_time_day if x not in appointment_hours] # tolgo le ore gia occupate
 
 
-        # selected_date = request.form.get('selectedDate')  # Primește data selectată de la client
-        # # Transformă data selectată într-un obiect datetime (poate fi necesară conversia în funcție de format)
-        # selected_datetime = datetime.strptime(selected_date, '%Y-%m-%d %H:%M:%S')
+        return jsonify(available_time)
+
+
+
+def newAppointmet():
+    if request.method == 'POST':
+        data = request.get_json()
+        emailCliente = data.get('emailCliente')
+        servizioCliente = data.get('servizioCliente')
+        dataCliente = data.get('dataCliente')
+        orarioCliente = data.get('orarioCliente')
+        noteCliente = data.get('noteCliente')
+
+        # 1. Obțineți id-ul clientului pe baza adresei de email
+        customer = Customer.query.filter_by(email=emailCliente).first()
+
+        if not customer:
+            return jsonify({'message': 'Client not found'}), 400
+
+        # 2. Obțineți durata serviciului pentru serviciul selectat
+        service = Service.query.get(servizioCliente)
+        if not service:
+            return jsonify({'message': 'Service not found'}), 400
+
+        duration = service.duration
+
+        # 3. Combinați data și orarul pentru a forma un obiect datetime
+        # (asigurați-vă că formatul datei și orarului este potrivit)
+        try:
+            appointment_datetime = datetime.strptime(f"{dataCliente} {orarioCliente}", "%d/%m/%Y %H")
+                                                            #     5/10/2023 14
+        except ValueError:
+            return jsonify({'message': 'Invalid date or time format'}), 400
+
+        # 4. Introduceți datele în baza de date
+        new_appointment = Appointment(
+            idCustomer=customer.id,
+            idService=servizioCliente,
+            idStaff=None,  # Setați aici id-ul personalului dacă este disponibil
+            notes=noteCliente,
+            datetime=appointment_datetime,
+            duration=duration,
+            state='new'
+        )
+
+        db.session.add(new_appointment)
+        db.session.commit()
+
+        subject = 'Sol30 - Conferma richiesta appuntamento'
+        message = f'Le confermiamo che la sua richiesta per l\'appuntamento del {dataCliente} alle ore {orarioCliente}:00 è stata correttamente inviata.\n\nServizio richiesto: {service.name}'
+
+        send_email(customer.email, subject, message)
+
+        return jsonify({'message': 'Appointment added successfully'}), 201
+
+    return jsonify({'message': 'Method not allowed'}), 405

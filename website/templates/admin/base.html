@@ -40,7 +40,7 @@
            aria-hidden="true" id="iconSidenav"></i>
         <a class="navbar-brand m-0" href="/website/static" target="_blank">
             <!-- <span class="ms-1 font-weight-bold text-white">IT-Expert</span> -->
-            <img src="{{ url_for('static', filename='logo.png') }}" alt="" srcset="">
+            <img src="{{ url_for('static', filename='/client/images/itexpert.png') }}" alt="" srcset="">
         </a>
     </div>
     <hr class="horizontal light mt-0 mb-2">
@@ -158,7 +158,7 @@
                         </ul>
                     </li>
                     <li class="nav-item d-flex align-items-center">
-                        <a href="" class="nav-link text-body font-weight-bold px-0">
+                        <a href="/admin/logout" class="nav-link text-body font-weight-bold px-0">
                             <i class="fa fa-user me-sm-1" aria-hidden="true"></i>
                             <span class="d-sm-inline d-none">{% print(user.first_name) %}</span>
                         </a>

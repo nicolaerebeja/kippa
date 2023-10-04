@@ -43,24 +43,24 @@ class Appointment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     idCustomer = db.Column(db.Integer, db.ForeignKey('customer.id'), nullable=False)
     idService = db.Column(db.Integer, db.ForeignKey('service.id'), nullable=False)
-    idStaff = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    idStaff = db.Column(db.Integer, db.ForeignKey('user.id'))
     notes = db.Column(db.String(255))
     # timedate = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
     datetime = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
     duration = db.Column(db.Integer, nullable=False)  # Durata în minute
-    state = db.Column(db.String(20), default='Scheduled', nullable=False)
+    state = db.Column(db.String(20), default='New', nullable=False)
 
     # Definim relația către Customer, Service și User
     customer = db.relationship('Customer', backref='appointments')
     service = db.relationship('Service', backref='appointments')
     staff = db.relationship('User', backref='appointments')
 
-    def __init__(self, idCustomer, idService, idStaff, notes, timedate, duration, state='Scheduled'):
+    def __init__(self, idCustomer, idService, idStaff, notes, datetime, duration, state='Scheduled'):
         self.idCustomer = idCustomer
         self.idService = idService
         self.idStaff = idStaff
         self.notes = notes
-        self.timedate = timedate
+        self.datetime = datetime
         self.duration = duration
         self.state = state
