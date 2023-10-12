@@ -148,6 +148,13 @@
                                                 <h5>Servizio: <span id="customerService"></span></h5>
                                                 <h5>Data: <span id="customerData"></span></h5>
                                                 <h5>Orario: <span id="customerHour"></span></h5>
+
+                                                <div class="form-floating">
+                                                    <textarea class="form-control" placeholder="Recapito" id="recapito"
+                                                              style="height: 100px" required></textarea>
+                                                    <label for="recapito">Recapito</label>
+                                                </div>
+
                                                 <p class="mt-3 mb-3">Comunicazioni da inviare all'azienda</p>
                                                 <div class="mb-3">
                                                     <textarea class="form-control" id="notes"
@@ -455,58 +462,66 @@
             function conferma() {
                 var confirmBtn = document.getElementById('confirm');
                 confirmBtn.addEventListener('click', function () {
-                    const customerString = localStorage.getItem('customer');
-                    const customer = JSON.parse(customerString);
 
-                    const selectedDate = $('#datepicker').datepicker('getDate');
-                    const customerData = selectedDate.toLocaleDateString('it-IT');
+                    const recapito = document.getElementById('recapito').value;
 
-                    const emailCliente = customer.email;
-                    const servizioCliente = document.querySelector('tr.clickable.selected').id;
-                    const dataCliente = customerData;
-                    const orarioCliente = document.querySelector('.reservation-item.reservation-item-selected').dataset.reservationHoursInd;
-                    const noteCliente = document.getElementById('notes').value;
+                    if (recapito.length < 1) {
+                        alert('Si prega di inserire il recapito')
+                    } else {
 
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("POST", "/crea-appuntamento", true);
-                    xhr.setRequestHeader("Content-Type", "application/json");
+                        const customerString = localStorage.getItem('customer');
+                        const customer = JSON.parse(customerString);
 
-                    xhr.onreadystatechange = function () {
-                        if (xhr.readyState === 4) {
-                            if (xhr.status === 200 || xhr.status === 201 ) {
-                                var response = xhr.responseText;
-                                const data = JSON.parse(response);
-                                if (data.message === "Appointment added successfully") {
-                                    var smartWizardElement = document.getElementById('smartwizard');
+                        const selectedDate = $('#datepicker').datepicker('getDate');
+                        const customerData = selectedDate.toLocaleDateString('it-IT');
 
-                                    var successAlert = document.createElement('div');
-                                    successAlert.className = 'alert alert-success';
-                                    successAlert.textContent = 'La sua richiesta per l\'appuntamento è stata correttamente inviata.';
+                        const emailCliente = customer.email;
+                        const servizioCliente = document.querySelector('tr.clickable.selected').id;
+                        const dataCliente = customerData;
+                        const orarioCliente = document.querySelector('.reservation-item.reservation-item-selected').dataset.reservationHoursInd;
+                        const noteCliente = document.getElementById('notes').value;
 
-                                    smartWizardElement.parentNode.replaceChild(successAlert, smartWizardElement);
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("POST", "/crea-appuntamento", true);
+                        xhr.setRequestHeader("Content-Type", "application/json");
 
+                        xhr.onreadystatechange = function () {
+                            if (xhr.readyState === 4) {
+                                if (xhr.status === 200 || xhr.status === 201) {
+                                    var response = xhr.responseText;
+                                    const data = JSON.parse(response);
+                                    if (data.message === "Appointment added successfully") {
+                                        var smartWizardElement = document.getElementById('smartwizard');
+
+                                        var successAlert = document.createElement('div');
+                                        successAlert.className = 'alert alert-success';
+                                        successAlert.textContent = 'La sua richiesta per l\'appuntamento è stata correttamente inviata.';
+
+                                        smartWizardElement.parentNode.replaceChild(successAlert, smartWizardElement);
+
+                                    } else {
+                                        alert('I dati non sono validi')
+                                    }
                                 } else {
-                                    alert('I dati non sono validi')
+                                    alert('Erorre durante la Conferma')
                                 }
-                            } else {
-                                alert('Erorre durante la Conferma')
                             }
-                        }
-                    };
+                        };
 
 
-                    var data = {
-                        emailCliente: emailCliente,
-                        servizioCliente: servizioCliente,
-                        dataCliente: dataCliente,
-                        orarioCliente: orarioCliente,
-                        noteCliente: noteCliente,
-                    };
+                        var data = {
+                            emailCliente: emailCliente,
+                            servizioCliente: servizioCliente,
+                            dataCliente: dataCliente,
+                            orarioCliente: orarioCliente,
+                            noteCliente: noteCliente,
+                            recapitoCliente : recapito
+                        };
 
-                    var jsonData = JSON.stringify(data);
+                        var jsonData = JSON.stringify(data);
 
-                    xhr.send(jsonData);
-
+                        xhr.send(jsonData);
+                    }
                 });
             }
 

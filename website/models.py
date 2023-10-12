@@ -43,24 +43,23 @@ class Appointment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     idCustomer = db.Column(db.Integer, db.ForeignKey('customer.id'), nullable=False)
     idService = db.Column(db.Integer, db.ForeignKey('service.id'), nullable=False)
-    idStaff = db.Column(db.Integer, db.ForeignKey('user.id'))
     notes = db.Column(db.String(255))
-    # timedate = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
     datetime = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    recapito = db.Column(db.String(20), nullable=False)
+    noteStaff = db.Column(db.String(255))
 
-    duration = db.Column(db.Integer, nullable=False)  # Durata în minute
+    duration = db.Column(db.Integer, nullable=False)
     state = db.Column(db.String(20), default='New', nullable=False)
 
-    # Definim relația către Customer, Service și User
     customer = db.relationship('Customer', backref='appointments')
     service = db.relationship('Service', backref='appointments')
-    staff = db.relationship('User', backref='appointments')
 
-    def __init__(self, idCustomer, idService, idStaff, notes, datetime, duration, state='Scheduled'):
+    def __init__(self, idCustomer, idService, notes, datetime, duration, recapito, noteStaff, state='new'):
         self.idCustomer = idCustomer
         self.idService = idService
-        self.idStaff = idStaff
         self.notes = notes
         self.datetime = datetime
         self.duration = duration
         self.state = state
+        self.recapito = recapito
+        self.noteStaff = noteStaff
