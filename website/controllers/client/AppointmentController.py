@@ -60,7 +60,7 @@ def datepicker():
             hour = appointment.datetime.strftime("%H") # prendo da dataora solo l'ora
             appointment_hours.append(int(hour)) # la aggiungo alla lista
 
-        available_time_day = [9, 10, 11, 12, 13, 14, 15] # questa e la lista del orarrio disponibile per appti.
+        available_time_day = [9, 10, 11, 14, 15] # questa e la lista del orarrio disponibile per appti.
 
         available_time = [x for x in available_time_day if x not in appointment_hours] # tolgo le ore gia occupate
 
@@ -77,6 +77,7 @@ def newAppointmet():
         dataCliente = data.get('dataCliente')
         orarioCliente = data.get('orarioCliente')
         noteCliente = data.get('noteCliente')
+        recapitoCliente = data.get('recapitoCliente')
 
         # 1. Obțineți id-ul clientului pe baza adresei de email
         customer = Customer.query.filter_by(email=emailCliente).first()
@@ -103,11 +104,12 @@ def newAppointmet():
         new_appointment = Appointment(
             idCustomer=customer.id,
             idService=servizioCliente,
-            idStaff=None,  # Setați aici id-ul personalului dacă este disponibil
             notes=noteCliente,
             datetime=appointment_datetime,
             duration=duration,
-            state='new'
+            recapito=recapitoCliente,
+            state='new',
+            noteStaff=''
         )
 
         db.session.add(new_appointment)
@@ -117,6 +119,13 @@ def newAppointmet():
         message = f'Le confermiamo che la sua richiesta per l\'appuntamento del {dataCliente} alle ore {orarioCliente}:00 è stata correttamente inviata.\n\nServizio richiesto: {service.name}'
 
         send_email(customer.email, subject, message)
+
+        # itexpertEmail='itexpert.vodafone@solutions30.com'
+        itexpertEmail='pretulcorect.com@gmail.com'
+        subjectStaff = 'Sol30 - Nuova richiesta appuntamento'
+        messageStaff = f'Hai ricevuto una nuova prenotazione da un cliente.\n\nDati del cliente:\nNome: {customer.name}\nCognome: {customer.surname}\nEmail: {customer.email}\nTelefono Cliente: {customer.tel}\nRecapito Appuntamento: {recapitoCliente}\n\nDettagli della prenotazione:\nData: {dataCliente}\nOra: {orarioCliente}:00\nServizio richiesto: {service.name}\nNote: {noteCliente}'
+
+        send_email(itexpertEmail, subjectStaff, messageStaff)
 
         return jsonify({'message': 'Appointment added successfully'}), 201
 

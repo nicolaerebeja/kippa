@@ -8,7 +8,7 @@
     <div class="row mb-12">
         <div class="col-lg-12 col-md-12 mb-md-0 mb-4">
             <div class="card">
-                <div class="card-body px-0 pb-2">
+                <div class="card-body ml-2 mr-2">
 
                     <div id='calendar'></div>
 
@@ -29,16 +29,76 @@
                 initialView: 'timeGridWeek',
                 locale: 'it',
 
+
                 slotMinTime: '09:00',
                 slotMaxTime: '18:00',
 
                 eventClick: function (info) {
-                    Swal.fire(
-                        info.event.extendedProps.service,
-                        info.event.extendedProps.notes,
-                    );
+                    Swal.fire({
+                        showConfirmButton: false, // Ascunde butonul "Confirm"
+                        showCancelButton: false, // Ascunde butonul "Cancel"
+                        showCloseButton: true, // Afișează butonul "Close"
+                        title: '',
+                        html: `
+                      <form id="appointment-form" method="POST">
+                        <input name='ididAppointment' type="number"   value="` + info.event.extendedProps.idAppointment + `" hidden="true">
 
-                }
+                        <div class="row mt-3">
+                          <div class="col">
+                            <input type="text" class="form-control" placeholder="Name" aria-label="Name" value="` + info.event.extendedProps.name + `" disabled>
+                          </div>
+                          <div class="col">
+                            <input type="text" class="form-control" placeholder="Surname" aria-label="Surname"  value="` + info.event.extendedProps.surname + `" disabled>
+                          </div>
+                        </div>
+
+                        <div class="row mt-3">
+                          <div class="col">
+                            <input type="text" class="form-control" placeholder="Tel." aria-label="tel" value="` + info.event.extendedProps.tel + `" disabled>
+                          </div>
+                          <div class="col">
+                            <input type="text" class="form-control" placeholder="Email" aria-label="Email"  value="` + info.event.extendedProps.email + `" disabled>
+                          </div>
+                        </div>
+
+                        <div class="row mt-3">
+                          <div class="col">
+                            <input type="text" class="form-control" placeholder="recapito" aria-label="recapito" value="` + info.event.extendedProps.recapito + `" disabled>
+                          </div>
+                          <div class="col">
+                            <input type="text" class="form-control" placeholder="piva" aria-label="piva"  value="` + info.event.extendedProps.piva + `" disabled>
+                          </div>
+                        </div>
+
+                        <br>
+                                                <div class="form-floating">
+                                                    <textarea class="form-control" placeholder="Note Cliente" id="noteAppuntamento"
+                                                              style="height: 100px" disabled>` + info.event.extendedProps.noteAppuntamento + `</textarea>
+                                                    <label for="recapito">Note Cliente</label>
+                                                </div>
+                        <br>
+
+                        <div class="row mt-3">
+                          <div class="col">
+                            <input type="text" class="form-control" placeholder="Servizio" aria-label="Servizio" value="` + info.event.extendedProps.service + `" disabled>
+                          </div>
+                          <div class="col">
+                            <input type="text" class="form-control" placeholder="Stato" aria-label="Stato"  value="` + info.event.extendedProps.state + `" disabled>
+                          </div>
+                        </div>
+
+                        <br>
+                                                <div class="form-floating">
+                                                    <textarea class="form-control" placeholder="Note Intervento" id="noteIntervento" name='noteIntervento'
+                                                              style="height: 100px" >` + info.event.extendedProps.noteStaff + `</textarea>
+                                                    <label for="noteIntervento">Note Intervento</label>
+                                                </div>
+
+                        <button type="submit" class="btn btn-success display-7">` + (info.event.extendedProps.state === "new" ? 'Conferma appuntamento' : 'Answered') + `</button>
+                      </form>
+                    `
+                    });
+                },
 
             });
             calendar.render();
@@ -46,21 +106,33 @@
 
             var appointments = [
                 {% for appointment in appointmets %}
-
-
                     {
                         title: '{{ appointment.customer.name }} {{ appointment.customer.surname }}',
                         start: '{{ appointment.datetime }}',
                         end: new Date('{{ appointment.datetime  }}').setHours(new Date('{{ appointment.datetime  }}').getHours() + 1),
+                       color: ( '{{ appointment.state }}' === "new" ? 'blue' : ( '{{ appointment.state }}' === "in progress" ? 'green' : ( '{{ appointment.state }}' === "other_state" ? 'red' : 'gray') ) ),
+
+                        // color: ( '{{ appointment.state }}' === "new" ? 'blue' : null) ( '{{ appointment.state }}' === "answered" ? 'blue' : 'green'),
                         extendedProps: {
                             service: '{{ appointment.service.name }}',
                             notes: '{{ appointment.notes }}',
+                            name: '{{ appointment.customer.name }}',
+                            surname: '{{ appointment.customer.surname }}',
+                            tel: '{{ appointment.customer.tel }}',
+                            recapito: '{{ appointment.recapito }}',
+                            email: '{{ appointment.customer.email }}',
+                            piva: '{{ appointment.customer.piva }}',
+                            state: '{{ appointment.state }}',
+                            idAppointment: '{{ appointment.id }}',
+                            noteAppuntamento: '{{ appointment.notes }}',
+                            noteStaff: '{{ appointment.noteStaff }}',
+
+
                         }
                     },
                 {% endfor %}
             ];
 
-// Adaugă evenimentul la calendar
             for (var i = 0; i < appointments.length; i++) {
                 calendar.addEvent(appointments[i]);
             }

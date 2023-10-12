@@ -3,17 +3,17 @@
 {% block title %}Servizi{% endblock %}
 
 {% block style %}
-<style>
-tr[id] {
-    cursor: pointer;
-}
-</style>
+    <style>
+        tr[id] {
+            cursor: pointer;
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
 
 
-<button class="btn btn-primary" id="open-modal-button" type="button">Nuovo Servizio +</button>
+    <button class="btn btn-primary" id="open-modal-button" type="button">Nuovo Servizio +</button>
 
     <div class="row my-4">
         <div class="col-12">
@@ -29,23 +29,23 @@ tr[id] {
                         <tbody>
 
                         {% for service in services %}
-                        <tr id="{{ service.id }}">
-                            <td>
-                                <div class="d-flex px-2 py-1">
-                                    <div>
-                                        <img src="https://png.pngtree.com/png-clipart/20200225/original/pngtree-customer-service-icon-png-image_5257338.jpg"
-                                             class="avatar avatar-sm me-3"
-                                             alt="avatar image">
+                            <tr id="{{ service.id }}">
+                                <td>
+                                    <div class="d-flex px-2 py-1">
+                                        <div>
+                                            <img src="https://png.pngtree.com/png-clipart/20200225/original/pngtree-customer-service-icon-png-image_5257338.jpg"
+                                                 class="avatar avatar-sm me-3"
+                                                 alt="avatar image">
+                                        </div>
+                                        <div class="d-flex flex-column justify-content-center">
+                                            <h6 class="mb-0 font-weight-normal text-sm">{{ service.name }}</h6>
+                                        </div>
                                     </div>
-                                    <div class="d-flex flex-column justify-content-center">
-                                        <h6 class="mb-0 font-weight-normal text-sm">{{ service.name }}</h6>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <p class="text-sm font-weight-normal mb-0">{{ service.duration }}</p>
-                            </td>
-                        </tr>
+                                </td>
+                                <td>
+                                    <p class="text-sm font-weight-normal mb-0">{{ service.duration }}</p>
+                                </td>
+                            </tr>
                         {% endfor %}
                         </tbody>
                     </table>
@@ -60,15 +60,15 @@ tr[id] {
 
 
 {% block scripts %}
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<script>
-const openModalButton = document.getElementById('open-modal-button');
+    <script>
+        const openModalButton = document.getElementById('open-modal-button');
 
-openModalButton.addEventListener('click', () => {
-  Swal.fire({
-    title: 'Crea Servizio',
-    html: `
+        openModalButton.addEventListener('click', () => {
+            Swal.fire({
+                title: 'Crea Servizio',
+                html: `
       <form id="client-form">
         <div class="input-group input-group-static mb-4">
           <label>Nome</label>
@@ -80,30 +80,30 @@ openModalButton.addEventListener('click', () => {
         </div>
       </form>
     `,
-    showCancelButton: true,
-    confirmButtonText: 'Crea',
-    cancelButtonText: 'Annulla',
-    focusConfirm: false,
-      preConfirm: () => {
-        const name = document.getElementById('name').value;
-        const duration = document.getElementById('duration').value;
+                showCancelButton: true,
+                confirmButtonText: 'Crea',
+                cancelButtonText: 'Annulla',
+                focusConfirm: false,
+                preConfirm: () => {
+                    const name = document.getElementById('name').value;
+                    const duration = document.getElementById('duration').value;
 
-        $.ajax({
-          url: '/admin/services',
-          method: 'POST',
-          data: { name, duration },
-          success: function (response) {
-            Swal.fire('Servizio creato con successo!', '', 'success');
-          },
-          error: function (error) {
-            console.error('Eroare:', error);
-            Swal.fire('Errore durante la creazione del servizio', 'Si è verificato un errore durante la creazione del servizio.', 'error');
-          }
+                    $.ajax({
+                        url: '/admin/services',
+                        method: 'POST',
+                        data: {name, duration},
+                        success: function (response) {
+                            Swal.fire('Servizio creato con successo!', '', 'success');
+                        },
+                        error: function (error) {
+                            console.error('Eroare:', error);
+                            Swal.fire('Errore durante la creazione del servizio', 'Si è verificato un errore durante la creazione del servizio.', 'error');
+                        }
+                    });
+                }
+            }).then((result) => {
+            });
         });
-      }
-    }).then((result) => {
-    });
-});
 
 
     </script>
@@ -116,10 +116,65 @@ openModalButton.addEventListener('click', () => {
             row.addEventListener('click', () => {
                 // Obțineți id-ul din atributul data-id
                 const id = row.getAttribute('id');
+                const name = row.childNodes[1].innerText;
+                const duration = row.childNodes[3].innerText;
 
-                // Afișați id-ul folosind alert() sau în alt mod dorit
-                alert(`ID: ${id}`);
+                Swal.fire({
+                    title: 'Modifica Servizio',
+                    html: `
+                  <form id="service-edit">
+                    <div class="input-group input-group-static mb-4">
+                      <label>Nome</label>
+                      <input type="text" class="form-control" id="newName" value="` + name + `" required>
+                    </div>
+                    <div class="input-group input-group-static mb-4">
+                      <label>Durata (min.)</label>
+                      <input type="number" class="form-control" id="newDuration" value="` + duration + `" required>
+                    </div>
+                  </form>
+                `,
+                    showCancelButton: true,
+                    showDenyButton: true,
+                    confirmButtonText: 'Modifica',
+                    denyButtonText: `Elimina`,
+                    cancelButtonText: 'Annulla',
+                    focusConfirm: false,
+                    preConfirm: () => {
+                        const newName = document.getElementById('newName').value;
+                        const newDuration = document.getElementById('newDuration').value;
+
+                        $.ajax({
+                            url: '/admin/services',
+                            method: 'POST',
+                            data: {newName, newDuration, id},
+                            success: function (response) {
+                                Swal.fire('Servizio modificato con successo!', '', 'success');
+                            },
+                            error: function (error) {
+                                console.error('Eroare:', error);
+                                Swal.fire('Errore durante la modifica del servizio', 'Si è verificato un errore durante la modifica del servizio.', 'error');
+                            }
+                        });
+                    }
+                }).then((result) => {
+                    if (result.isDenied) {
+                        const type = 'delete';
+                        $.ajax({
+                            url: '/admin/services',
+                            method: 'POST',
+                            data: {id, type},
+                            success: function (response) {
+                                Swal.fire('Servizio Eliminato con successo!', '', 'success');
+                            },
+                            error: function (error) {
+                                console.error('Eroare:', error);
+                                Swal.fire('Errore durante la modifica del servizio', 'Si è verificato un errore durante la modifica del servizio.', 'error');
+                            }
+                        });
+
+                    }
+                });
             });
         });
-    </script>
+        </script>
 {% endblock %}

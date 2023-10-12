@@ -3,10 +3,16 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 def send_email(to_email, subject, message):
-    smtp_server = 'smtp.office365.com'  # Înlocuiți cu serverul SMTP real
-    smtp_port = 587  # Portul pentru serverul SMTP (587 pentru TLS, 465 pentru SSL)
-    smtp_username = 'rebejanicolae@gmail.com'  # Înlocuiți cu numele de utilizator pentru autentificarea SMTP
-    smtp_password = 'gjhtpbrgujdfayir'  # Înlocuiți cu parola pentru autentificarea SMTP
+
+    # smtp_server = 'smtp.office365.com'
+    # smtp_port = 587
+    # smtp_username = 'itexpert.vodafone@solutions30.com'
+    # smtp_password = 'XAZ08251'
+
+    smtp_server = 'mail.idconnectitworks.eu'
+    smtp_port = 465
+    smtp_username = 'itexpert.vodafone@idconnectitworks.eu'
+    smtp_password = 'X4sK$sAo5gw]'
 
     msg = MIMEMultipart()
     msg['From'] = smtp_username

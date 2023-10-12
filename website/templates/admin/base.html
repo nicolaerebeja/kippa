@@ -68,7 +68,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link text-white {% if request.path.startswith('/crea-cliente') %}active bg-gradient-warning{% endif %}"
+                <a class="nav-link text-white {% if request.path.startswith('/admin/appointments') %}active bg-gradient-warning{% endif %}"
                    href="/admin/appointments">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">done_all</i>
@@ -78,28 +78,38 @@
             </li>
 
             <li class="nav-item">
-                <a data-bs-toggle="collapse" href="#reportistica"
-                   class="nav-link text-white {% if request.path.startswith('/stato-cliente') %}active {% endif %} collapsed"
-                   aria-controls="reportistica" role="button" aria-expanded="false">
-                    <i class="material-icons opacity-10">settings</i>
-                    <span class="nav-link-text ms-1">Configurazione</span>
+                <a class="nav-link text-white {% if request.path.startswith('/admin/services') %}active bg-gradient-warning{% endif %}"
+                   href="/admin/services">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">settings</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Servizi</span>
                 </a>
-                <div class="collapse" id="reportistica" style="">
-                    <ul class="nav ">
-                        <li class="nav-item {% if request.path == '/stato-cliente/tutti' %}active {% endif %}">
-                            <a class="nav-link text-white {% if request.path == '/stato-cliente/tutti' %}active {% endif %}"
-                               href="/stato-cliente/tutti">
-                                <span class="sidenav-mini-icon"> O </span>
-                                <span class="sidenav-normal  ms-2  ps-1"> Orari </span>
-                            </a>
-                        </li>
-                        <li class="nav-item {% if request.path == '/admin/services' %}active {% endif %}">
-                            <a class="nav-link text-white {% if request.path == '/admin/services' %}active {% endif %}"
-                               href="/admin/services">
-                                <span class="sidenav-mini-icon"> S </span>
-                                <span class="sidenav-normal  ms-2  ps-1"> Servizi </span>
-                            </a>
-                        </li>
+            </li>
+
+{#            <li class="nav-item">#}
+{#                <a data-bs-toggle="collapse" href="#reportistica"#}
+{#                   class="nav-link text-white {% if request.path.startswith('/stato-cliente') %}active {% endif %} collapsed"#}
+{#                   aria-controls="reportistica" role="button" aria-expanded="false">#}
+{#                    <i class="material-icons opacity-10">settings</i>#}
+{#                    <span class="nav-link-text ms-1">Configurazione</span>#}
+{#                </a>#}
+{#                <div class="collapse" id="reportistica" style="">#}
+{#                    <ul class="nav ">#}
+{#                        <li class="nav-item {% if request.path == '/stato-cliente/tutti' %}active {% endif %}">#}
+{#                            <a class="nav-link text-white {% if request.path == '/stato-cliente/tutti' %}active {% endif %}"#}
+{#                               href="/stato-cliente/tutti">#}
+{#                                <span class="sidenav-mini-icon"> O </span>#}
+{#                                <span class="sidenav-normal  ms-2  ps-1"> Orari </span>#}
+{#                            </a>#}
+{#                        </li>#}
+{#                        <li class="nav-item {% if request.path == '/admin/services' %}active {% endif %}">#}
+{#                            <a class="nav-link text-white {% if request.path == '/admin/services' %}active {% endif %}"#}
+{#                               href="/admin/services">#}
+{#                                <span class="sidenav-mini-icon"> S </span>#}
+{#                                <span class="sidenav-normal  ms-2  ps-1"> Servizi </span>#}
+{#                            </a>#}
+{#                        </li>#}
 {#                        <li class="nav-item {% if request.path == '/stato-cliente/in_attesa' %}active {% endif %}">#}
 {#                            <a class="nav-link text-white {% if request.path == '/stato-cliente/in_attesa' %}active {% endif %}"#}
 {#                               href="/stato-cliente/in_attesa">#}
@@ -107,9 +117,9 @@
 {#                                <span class="sidenav-normal  ms-2  ps-1"> Staff </span>#}
 {#                            </a>#}
 {#                        </li>#}
-                    </ul>
-                </div>
-            </li>
+{#                    </ul>#}
+{#                </div>#}
+{#            </li>#}
 
 
             <hr class="horizontal light mt-0 mb-2">
