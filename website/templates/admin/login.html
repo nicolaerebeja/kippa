@@ -41,6 +41,16 @@
 <body>
 <div class="login-form">
 
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
     {% if 'error' in get_flashed_messages(with_categories=true) %}
         <div class="alert alert-danger">
             <ul>
@@ -64,12 +74,12 @@
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block">Log in</button>
         </div>
-        <!-- <div class="clearfix">
+        <div class="clearfix">
             <label class="float-left form-check-label"><input type="checkbox"> Remember me</label>
             <a href="#" class="float-right">Forgot Password?</a>
-        </div>         -->
+        </div>
     </form>
-    <!-- <p class="text-center"><a href="#">Create an Account</a></p> -->
+    <p class="text-center"><a href="/admin/sign-up">Create an Account</a></p>
 </div>
 </body>
 </html>

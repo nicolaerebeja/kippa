@@ -1,0 +1,82 @@
+{% extends "admin/base.html" %}
+{% block title1 %}Users{% endblock %}
+{% block title %}Users{% endblock %}
+
+{% block style %}
+<style>
+tr[id] {
+    cursor: pointer;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+
+    <div class="row my-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="table align-items-center mb-0">
+                        <thead>
+                        <tr>
+                            <th class="text-uppercase text-xxs font-weight-bolder opacity-7">Name</th>
+                            <th class="text-uppercase text-xxs font-weight-bolder opacity-7 ps-2">Email</th>
+                            <th class="text-uppercase text-xxs font-weight-bolder opacity-7 ps-2">Type</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        {% for user in users %}
+                        <tr id="{{ user.id }}">
+                            <td>
+                                <div class="d-flex px-2 py-1">
+                                    <div>
+                                        <img src="https://cdn.iconscout.com/icon/free/png-256/free-avatar-370-456322.png?f=webp"
+                                             class="avatar avatar-sm me-3"
+                                             alt="avatar image">
+                                    </div>
+                                    <div class="d-flex flex-column justify-content-center">
+                                        <h6 class="mb-0 font-weight-normal text-sm">{{ user.first_name }}</h6>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <p class="text-sm font-weight-normal mb-0">{{ user.email }}</p>
+                            </td>
+                            <td>
+                            <span class="badge badge-dot me-4">
+                            <i class="bg-info"></i>
+                            <span class="text-dark text-xs">{{ user.type }}</span>
+                            </span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    <script>
+        const rows = document.querySelectorAll('tr[id]');
+
+        rows.forEach(row => {
+            row.addEventListener('click', () => {
+                const id = row.getAttribute('id');
+                alert(`ID: ${id}`);
+            });
+        });
+    </script>
+{% endblock %}

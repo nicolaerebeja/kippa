@@ -16,13 +16,16 @@ def login():
         user = User.query.filter_by(email=email).first()
         if user:
             if check_password_hash(user.password, password):
-                flash('Logged in successfuly!', category='success')
-                login_user(user, remember=True)
-                return redirect(url_for('views.adminHome'))
+                if user.type == 'admin':
+                    flash('Logged in successfuly!')
+                    login_user(user, remember=True)
+                    return redirect(url_for('views.adminHome'))
+                else:
+                    flash('This account has not been activated')
             else:
-                flash('Incorrect password, try again', category='error')
+                flash('Incorrect password, try again')
         else:
-            flash('email does not exist', category='error')
+            flash('email does not exist')
     return render_template("admin/login.html", user=current_user)
 
 
@@ -54,7 +57,7 @@ def sign_up():
             flash('Password must be greater than 7 characters', category='error')
         else:
             new_user = User(email=email, first_name=first_name,
-                            password=generate_password_hash(password1, method='sha256'))
+                            password=generate_password_hash(password1, method='sha256'), type='new')
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)
