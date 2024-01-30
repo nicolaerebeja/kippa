@@ -4,97 +4,99 @@
 {% endblock %}
 {% block content %}
     {% if product %}
-        <div id="page-content">
-            <!--MainContent-->
-            <div id="MainContent" class="main-content" role="main">
-                <!--Breadcrumb-->
-                <div class="bredcrumbWrap">
-                    <div class="container breadcrumbs">
-                        <a href="{{ url_for('views.home') }}" title="acasa">Acasă</a>
-                        <span aria-hidden="true">›</span>
-                        <span>{{ product.title }}</span>
-                    </div>
+    <div id="page-content">
+        <!--MainContent-->
+        <div id="MainContent" class="main-content" role="main">
+            <!--Breadcrumb-->
+            <div class="bredcrumbWrap">
+                <div class="container breadcrumbs">
+                    <a href="{{ url_for('views.home') }}" title="acasa">Acasă</a>
+                    <span aria-hidden="true">›</span>
+                    <span>{{ product.title }}</span>
                 </div>
-                <!--End Breadcrumb-->
+            </div>
+            <!--End Breadcrumb-->
 
 
-                <div id="ProductSection-product-template" class="product-template__container prstyle2 container">
+            <div id="ProductSection-product-template" class="product-template__container prstyle2 container">
 
 
-                    <!--#ProductSection-product-template-->
-                    <div class="product-single product-single-1">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                <div class="product-details-img product-single__photos bottom">
-                                    <div class="zoompro-wrap product-zoom-right pl-20">
-                                        <div class="zoompro-span">
-                                            <img class="blur-up lazyload zoompro"
-                                                 data-zoom-image="{{ product.main_image }}"
-                                                 alt="aromaflames image"
-                                                 src="{{ product.main_image }}"/>
-                                        </div>
-
+                <!--#ProductSection-product-template-->
+                <div class="product-single product-single-1">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                            <div class="product-details-img product-single__photos bottom">
+                                <div class="zoompro-wrap product-zoom-right pl-20">
+                                    <div class="zoompro-span">
+                                        <img class="blur-up lazyload zoompro"
+                                             data-zoom-image="{{ product.main_image }}"
+                                             alt="kippa image"
+                                             src="{{ product.main_image }}"/>
+                                    </div>
                                         {% if product.discount > 0 %}
                                             <div class="product-labels">
                                                 <span class="lbl on-sale">Sale</span>
                                             </div>
                                         {% endif %}
 
-                                    </div>
+                                        </div>
 
 
-                                </div>
-                                <!--Product Feature-->
-                                <div class="prFeatures">
-                                    <div class="row">
-                                        <div class="col-12 col-sm-12 col-md-12 col-lg-6 feature">
-                                            <div class="details"><h3>LIVRARE GRATUITA</h3> Livrare gratuită pentru orice
-                                                comandă cu valoare mai mare de 5000 Mdl.
+                                        </div>
+                                        <!--Product Feature-->
+                                        <div class="prFeatures">
+                                            <div class="row">
+                                                <div class="col-12 col-sm-12 col-md-12 col-lg-6 feature">
+                                                    <div class="details"><h3>LIVRARE GRATUITA</h3> Livrare gratuită
+                                                        pentru orice
+                                                        comandă cu valoare mai mare de 5000 Mdl.
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12 col-lg-6 feature">
+                                                    <div class="details"><h3>DREPT DE RETUR 14 ZILE </h3>Dacă vă
+                                                        răzgândiți, vă
+                                                        vom
+                                                        schimba sau rambursa cu plăcere în 14 de zile de la cumpărare *
+                                                        exceptie
+                                                        fac
+                                                        prod. personalizate.
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12 col-lg-6 feature">
+                                                    <div class="details"><h3>SUPORT TELEFONIC </h3> Puteți să obțineți
+                                                        răspunsuri
+                                                        rapide și precise la întrebările dumneavoastră.
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-sm-12 col-md-12 col-lg-6 feature">
-                                            <div class="details"><h3>DREPT DE RETUR 14 ZILE </h3>Dacă vă răzgândiți, vă
-                                                vom
-                                                schimba sau rambursa cu plăcere în 14 de zile de la cumpărare * exceptie
-                                                fac
-                                                prod. personalizate.
-                                            </div>
+                                        <!--End Product Feature-->
                                         </div>
-                                        <div class="col-12 col-sm-12 col-md-12 col-lg-6 feature">
-                                            <div class="details"><h3>SUPORT TELEFONIC </h3> Puteți să obțineți
-                                                răspunsuri
-                                                rapide și precise la întrebările dumneavoastră.
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--End Product Feature-->
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                <div class="product-single__meta">
-                                    <h1 class="product-single__title">{{ product.name }}</h1>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                            <div class="product-single__meta">
+                                                <h1 class="product-single__title">{{ product.name }}</h1>
 
-                                    <div class="prInfoRow">
-                                        {#                                <div class="product-stock">#}
-                                        {#                                    <span class="instock">In Stock</span>#}
-                                        {#                                </div>#}
-                                        <div class="product-stock">
-                                            <span class="outstock">La Comandă</span>
-                                        </div>
+                                                <div class="prInfoRow">
+                                                    {#                                <div class="product-stock">#}
+                                                    {#                                    <span class="instock">In Stock</span>#}
+                                                    {#                                </div>#}
+                                                    <div class="product-stock">
+                                                        <span class="outstock">La Comandă</span>
+                                                    </div>
 
-                                    </div>
-                                    {% if product.discount > 0 %}
+                                                </div>
+                                                {% if product.discount > 0 %}
 
-                                        <p class="product-single__price product-single__price-product-template">
-                                            <span class="visually-hidden">Regular price</span>
-                                            <s id="ComparePrice-product-template"><span
-                                                    class="money">{{ product.price }}Mdl</span></s>
-                                            <span
-                                                    class="product-price__price product-price__price-product-template product-price__sale product-price__sale--single">
+                                                    <p class="product-single__price product-single__price-product-template">
+                                                        <span class="visually-hidden">Regular price</span>
+                                                        <s id="ComparePrice-product-template"><span
+                                                                class="money">{{ product.price }}Mdl</span></s>
+                                                        <span
+                                                                class="product-price__price product-price__price-product-template product-price__sale product-price__sale--single">
                                     <span id="ProductPrice-product-template"><span
                                             class="money">{{ product.price - product.discount }}Mdl</span></span>
                                 </span>
-                                            <span class="discount-badge">
+                                                        <span class="discount-badge">
                                     <span class="devider">|</span>&nbsp;
                                     <span>You Save</span>
                                     <span id="SaveAmount-product-template" class="product-single__save-amount">
@@ -103,99 +105,110 @@
 {#                                    <span class="off">(<span>{{ (product.discount / product.price) * 100 }} </span>%)</span>#}
 
                                 </span>
-                                        </p>
-                                        <!-- Your sale-related content here -->
-                                    {% else %}
-                                        <h3 class="mb-3">{{ product.price }} Mdl</h3>
-                                    {% endif %}
+                                                    </p>
+                                                    <!-- Your sale-related content here -->
+                                                {% else %}
+                                                    <h3 class="mb-3">{{ product.price }} Mdl</h3>
+                                                {% endif %}
 
 
-                                    <div class="product-single__description rte mb-3 mt-2">
-                                        {{ product.details|nl2br|safe }}
-                                    </div>
-
-                                    <div class="product-form product-form-product-template hidedropdown">
-
-                                        <div class="swatch clearfix swatch-1 option2 mt-3" data-option-index="1">
-                                            <div class="product-form__item">
-
-
-                                            </div>
-                                        </div>
-
-                                        <div class="swatch clearfix swatch-1 option2 mt-3" data-option-index="1">
-                                            <div class="product-form__item">
-                                                <label class="header">Culoare: <span
-                                                        class="slVariant">No Selection</span></label>
-
-
-                                                <div data-value="Albastru" class="swatch-element color">
-                                                    <input class="swatchInput" id="swatch-1-Fara-color" type="radio"
-                                                           name="color" value="Albastru">
-                                                    <label class="swatchLbl medium rectangle" for="swatch-1-Fara-color"
-                                                           title="Albastru">Albastru</label>
-                                                </div>
-                                                <div data-value="Verde" class="swatch-element color">
-                                                    <input class="swatchInput" id="swatch-1-Verde-color" type="radio"
-                                                           name="color" value="Verde">
-                                                    <label class="swatchLbl medium rectangle" for="swatch-1-Verde-color"
-                                                           title="Verde">Verde</label>
+                                                <div class="product-single__description rte mb-3 mt-2">
+                                                    {{ product.details|nl2br|safe }}
                                                 </div>
 
+                                                <div class="product-form product-form-product-template hidedropdown">
 
-                                            </div>
-                                        </div>
+                                                    <div class="swatch clearfix swatch-1 option2 mt-3"
+                                                         data-option-index="1">
+                                                        <div class="product-form__item">
 
 
-                                        <!-- Product Action -->
-                                        <div class="product-action clearfix">
-                                            <div class="product-form__item--quantity">
-                                                <div class="wrapQtyBtn">
-                                                    <div class="qtyField">
-                                                        <a class="qtyBtn minus" href="javascript:void(0);"><i
-                                                                class="fa anm anm-minus-r" aria-hidden="true"></i></a>
-                                                        <input type="text" id="Quantity" name="quantity" value="1"
-                                                               class="product-form__input qty">
-                                                        <a class="qtyBtn plus" href="javascript:void(0);"><i
-                                                                class="fa anm anm-plus-r" aria-hidden="true"></i></a>
+                                                        </div>
                                                     </div>
+
+                                                    <div class="swatch clearfix swatch-1 option2 mt-3"
+                                                         data-option-index="1">
+                                                        <div class="product-form__item">
+                                                            <label class="header">Culoare: <span
+                                                                    class="slVariant">No Selection</span></label>
+
+
+                                                            <div data-value="Albastru" class="swatch-element color">
+                                                                <input class="swatchInput" id="swatch-1-Fara-color"
+                                                                       type="radio"
+                                                                       name="color" value="Albastru">
+                                                                <label class="swatchLbl medium rectangle"
+                                                                       for="swatch-1-Fara-color"
+                                                                       title="Albastru">Albastru</label>
+                                                            </div>
+                                                            <div data-value="Verde" class="swatch-element color">
+                                                                <input class="swatchInput" id="swatch-1-Verde-color"
+                                                                       type="radio"
+                                                                       name="color" value="Verde">
+                                                                <label class="swatchLbl medium rectangle"
+                                                                       for="swatch-1-Verde-color"
+                                                                       title="Verde">Verde</label>
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+
+
+                                                    <!-- Product Action -->
+                                                    <div class="product-action clearfix">
+                                                        <div class="product-form__item--quantity">
+                                                            <div class="wrapQtyBtn">
+                                                                <div class="qtyField">
+                                                                    <a class="qtyBtn minus"
+                                                                       href="javascript:void(0);"><i
+                                                                            class="fa anm anm-minus-r"
+                                                                            aria-hidden="true"></i></a>
+                                                                    <input type="text" id="Quantity" name="quantity"
+                                                                           value="1"
+                                                                           class="product-form__input qty">
+                                                                    <a class="qtyBtn plus" href="javascript:void(0);"><i
+                                                                            class="fa anm anm-plus-r"
+                                                                            aria-hidden="true"></i></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <input type="hidden" id="price"
+                                                               value="{{ product.price - product.discount }}">
+                                                        <input type="hidden" id="items" value="1">
+                                                        <div class="product-form__item--submit">
+                                                            <button type="button" name="add"
+                                                                    class="btn product-form__cart-submit">
+                                                                <span>Add to cart</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- End Product Action -->
+                                                </div>
+
+                                            </div>
+                                            <!--Product Tabs-->
+                                            <div id="tab1" class="tab-content">
+                                                <div class="product-description rte">
+                                                    {{ product.description }}
+
                                                 </div>
                                             </div>
-                                            <input type="hidden" id="price"
-                                                   value="{{ product.price - product.discount }}">
-                                            <input type="hidden" id="items" value="1">
-                                            <div class="product-form__item--submit">
-                                                <button type="button" name="add" class="btn product-form__cart-submit">
-                                                    <span>Add to cart</span>
-                                                </button>
-                                            </div>
+                                            <!--End Product Tabs-->
                                         </div>
-
-                                        <!-- End Product Action -->
-                                    </div>
-
-                                </div>
-                                <!--Product Tabs-->
-                                <div id="tab1" class="tab-content">
-                                    <div class="product-description rte">
-                                        {{ product.description }}
-
-                                    </div>
-                                </div>
-                                <!--End Product Tabs-->
-                            </div>
-                        </div>
-                        <!--End-product-single-->
+                                        </div>
+                                        <!--End-product-single-->
 
 
-                    </div>
-                    <!--#ProductSection-product-template-->
-                </div>
-            </div>
-        </div>
-    {% else %}
-        <p>Produsul nu există sau nu poate fi afișat.</p>
-    {% endif %}
+                                        </div>
+                                        <!--#ProductSection-product-template-->
+                                        </div>
+                                        </div>
+                                        </div>
+                                    {% else %}
+                                        <p>Produsul nu există sau nu poate fi afișat.</p>
+                                    {% endif %}
 {% endblock %}
 {% block script %}
     <script>
