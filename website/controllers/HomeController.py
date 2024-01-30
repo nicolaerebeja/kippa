@@ -18,13 +18,10 @@ def search_by_category(slug):
 def product(slug):
     product_name = slug.replace('-', ' ')
     product = Product.query.filter_by(title=product_name).first()
-    #
-    # if product:
-    #     # Afișează toate atributele obiectului 'product' în consolă
-    #     print(f"ID: {product.id}")
-    #     print(f"Title: {product.title.encode('utf-8')}")
-    #     print(f"Category ID: {product.category_id}")
-    #     print(f"Description: {product.description.encode('utf-8')}")
-    #     # ... adaugă aici și alte atribute
+
+    if product:
+        # Afișează toate atributele obiectului 'product' în consolă
+        print(f"d: {product.discount}")
+
 
     return render_template("client/product.html", product=product)
