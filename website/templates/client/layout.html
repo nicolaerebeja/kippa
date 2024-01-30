@@ -35,7 +35,7 @@
 
 <body class="template-index belle template-index-belle">
 <div id="pre-loader">
-<img src="{{ url_for('static', filename='client/assets/images/loader.gif') }}" alt="Loading..."/>
+    <img src="{{ url_for('static', filename='client/assets/images/loader.gif') }}" alt="Loading..."/>
 </div>
 <div class="pageWrapper">
 
@@ -70,13 +70,13 @@
                             <li class="lvl1"><a href="/">ACASĂ <i
                                     class="anm anm-angle-down-l"></i></a></li>
 
-                            <li class="lvl1"><a href="/">Locuri de joaca<i
-                                    class="anm anm-angle-down-l"></i></a></li>
-                            <li class="lvl1"><a href="/">Case pe piloni pentru copii<i class="anm anm-angle-down-l"></i></a></li>
-                            <li class="lvl1"><a href="/">Leagăne<i class="anm anm-angle-down-l"></i></a></li>
-                            <li class="lvl1"><a href="/">Zona de fitness in aer liber<i class="anm anm-angle-down-l"></i></a></li>
-                            <li class="lvl1"><a href="/">Jocuri pentru parcuri<i class="anm anm-angle-down-l"></i></a></li>
-
+                                {% for category in categories %}
+                                    <li class="lvl1">
+                                        <a href="{{ url_for('views.search_by_category', slug=category.name|replace(' ', '-')) }}">
+                                            {{ category.name }}
+                                        <i class="anm anm-angle-down-l"></i></a>
+                                    </li>
+                                {% endfor %}
 
                         </ul>
                     </nav>
@@ -117,12 +117,22 @@
         <ul id="MobileNav" class="mobile-nav">
             <li class="lvl1"><a href="/">ACASĂ </a></li>
 
-            <li class="lvl1"><a href="/">Locuri de joaca</a></li>
-            <li class="lvl1"><a href="/">Case pe piloni pentru copii</a>
-            </li>
-            <li class="lvl1"><a href="/">Leagăne</a></li>
-            <li class="lvl1"><a href="/">Zona de fitness in aer liber</a></li>
-            <li class="lvl1"><a href="/">Jocuri pentru parcuri</a></li>
+            <ul>
+                {% for category in categories %}
+                    <li class="lvl1">
+                        <a href="{{ url_for('views.search_by_category', slug=category.name|replace(' ', '-')) }}">
+                            {{ category.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            {#            <li class="lvl1"><a href="/">Locuri de joaca</a></li>#}
+            {#            <li class="lvl1"><a href="/">Case pe piloni pentru copii</a>#}
+            {#            </li>#}
+            {#            <li class="lvl1"><a href="/">Leagăne</a></li>#}
+            {#            <li class="lvl1"><a href="/">Zona de fitness in aer liber</a></li>#}
+            {#            <li class="lvl1"><a href="/">Jocuri pentru parcuri</a></li>#}
 
         </ul>
     </div>
@@ -269,7 +279,6 @@
     <!-- Newsletter Popup -->
 
     <!-- End Newsletter Popup -->
-
 
 
     <script src="{{ url_for('static', filename='client/assets/js/vendor/jquery-3.3.1.min.js') }}"></script>

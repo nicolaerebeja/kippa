@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager, current_user
 from datetime import date
+from jinja2 import Environment
 
 
 db = SQLAlchemy()
@@ -21,7 +22,7 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
 
-    from .models import User
+    from .models import User, Category
     with app.app_context():
         db.create_all()
 
@@ -37,5 +38,14 @@ def create_app():
     def inject_user():
         return dict(user=current_user)
 
+    @app.context_processor
+    def inject_categories():
+        categories = Category.query.all()
+        return dict(categories=categories)
+
+    def nl2br(value):
+        return value.replace('\n', '<br>')
+
+    app.jinja_env.filters['nl2br'] = nl2br
 
     return app

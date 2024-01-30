@@ -1,0 +1,61 @@
+{% extends "admin/base.html" %}
+{% block title1 %}Creeaza Categorie{% endblock %}
+{% block title %}Creeaza Categorie{% endblock %}
+
+{% block style %}
+    <style>
+        tr[id] {
+            cursor: pointer;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+
+
+    <div class="container-fluid py-4">
+        <form action="/admin/add_category" method="post" enctype="multipart/form-data">
+            <div class="row mt-4">
+                <div class="col-lg-12 mt-lg-0 mt-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row mt-4">
+                                <div class="col-12 col-sm-6">
+                                    <div class="input-group input-group-dynamic">
+                                        <label class="form-label">Title</label>
+                                        <input type="text" class="form-control w-100" name="title"
+                                               onfocus="focused(this)" onfocusout="defocused(this)">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 mt-3 text-right d-flex flex-column justify-content-center">
+                        <button type="submit"
+                                class="btn bg-gradient-primary mb-0 ms-lg-auto me-lg-0 me-auto mt-lg-0 mt-2">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+
+
+
+
+{% endblock %}
+
+
+
+{% block scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+{% endblock %}

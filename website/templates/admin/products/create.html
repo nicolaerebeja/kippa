@@ -1,0 +1,117 @@
+{% extends "admin/base.html" %}
+{% block title1 %}Adauga Produs{% endblock %}
+{% block title %}Adauga Produs{% endblock %}
+
+{% block style %}
+    <style>
+        tr[id] {
+            cursor: pointer;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+
+
+
+    <div class="container-fluid py-4">
+        <form action="/admin/add_product" method="post" enctype="multipart/form-data">
+            <div class="row mt-4">
+                <div class="col-lg-12 mt-lg-0 mt-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="font-weight-bolder">Product Information</h5>
+                            <div class="row mt-4">
+                                <div class="col-12 col-sm-6">
+                                    <div class="input-group input-group-dynamic">
+                                        <label class="form-label">Title</label>
+                                        <input type="text" class="form-control w-100" name="title"
+                                               onfocus="focused(this)" onfocusout="defocused(this)">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6 mt-3 mt-sm-0">
+                                    <div class="input-group input-group-dynamic">
+                                        <label class="form-label">Category</label>
+                                        <select class="form-control w-100" name="category_id" onfocus="focused(this)"
+                                                onfocusout="defocused(this)">
+                                            {% for category in categories %}
+                                                <option value="{{ category.id }}">{{ category.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-3">
+                                    <div class="input-group input-group-dynamic">
+                                        <label class="form-label">Price</label>
+                                        <input type="text" class="form-control w-100" name="price"
+                                               onfocus="focused(this)"
+                                               onfocusout="defocused(this)">
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="input-group input-group-dynamic">
+                                        <label class="form-label">Discount</label>
+                                        <input type="text" class="form-control w-100" name="discount"
+                                               onfocus="focused(this)"
+                                               onfocusout="defocused(this)">
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="input-group input-group-dynamic">
+                                        <label class="form-label">Image</label>
+                                        <input type="file" name="main_image">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label class="mt-4">Description</label>
+                                    <div class="input-group input-group-dynamic">
+                                    <textarea class="form-control" rows="5" name="description"
+                                              spellcheck="false"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="mt-4 ms-0">Details</label>
+                                    <div class="input-group input-group-dynamic">
+                                    <textarea class="form-control" rows="5" name="details"
+                                              spellcheck="false"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 mt-3 text-right d-flex flex-column justify-content-center">
+                        <button type="submit"
+                                class="btn bg-gradient-primary mb-0 ms-lg-auto me-lg-0 me-auto mt-lg-0 mt-2">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+
+
+
+
+{% endblock %}
+
+
+
+{% block scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+{% endblock %}
